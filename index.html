@@ -409,6 +409,54 @@ body {
   }
 }
 
+
+.route-nav {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:4px;
+  margin-bottom:8px;
+  font-size:11px;
+  line-height:1.4;
+  color:rgba(0,0,0,.52);
+}
+.route-nav button {
+  border:none;
+  background:rgba(5,95,155,.08);
+  color:var(--keco-deep);
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  max-width:100%;
+}
+.route-nav button.current {
+  background:rgba(255,255,255,.72);
+  color:#1f1f1f;
+  cursor:default;
+}
+.route-nav .sep {
+  color:rgba(0,0,0,.34);
+  font-weight:800;
+}
+.install-guide .guide-title {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:4px;
+}
+.install-guide .guide-close {
+  border:none;
+  border-radius:999px;
+  background:rgba(0,0,0,.08);
+  color:#55400a;
+  padding:4px 8px;
+  font-size:11px;
+  cursor:pointer;
+}
+
 </style>
 </head>
 <body>
@@ -433,6 +481,7 @@ body {
   <div class="panel">
     <div class="panel-head">
       <div class="welcome-card">
+        <div id="routeNav" class="route-nav" aria-label="질문트리 접근 경로"></div>
         <h2 id="screenTitle">FAQ 홈</h2>
         <p id="screenDesc">카테고리를 선택해 주세요.</p>
         <div class="search-wrap" id="searchWrap">
@@ -569,6 +618,28 @@ function breadcrumbPath(id) {
 function nodePathText(node) {
   return breadcrumbPath(node.id).map(n => (n.ui && (n.ui.label || n.ui.question)) || "").join(" > ");
 }
+function renderRouteNav(id) {
+  const el = document.getElementById("routeNav");
+  if (!el) return;
+  const path = breadcrumbPath(id || "ROOT").filter(n => n.id === "ROOT" || isMenuEnabled(n));
+  if (!path.length) {
+    el.innerHTML = `<button type="button" class="current">홈</button>`;
+    return;
+  }
+  el.innerHTML = path.map((n, idx) => {
+    const label = n.id === "ROOT" ? "홈" : ((n.ui && (n.ui.label || n.ui.question)) || n.id);
+    const current = idx === path.length - 1;
+    const btn = `<button type="button" class="${current ? "current" : ""}" ${current ? "aria-current=\"page\"" : `onclick=\"jumpToRoute('${n.id}')\"`}>${escapeHtml(label)}</button>`;
+    return idx === 0 ? btn : `<span class="sep">›</span>${btn}`;
+  }).join("");
+}
+function jumpToRoute(id) {
+  const target = nodeMap[id];
+  if (!target || !isMenuEnabled(target)) return;
+  currentId = id;
+  historyStack = breadcrumbPath(id).slice(0, -1).map(n => n.id);
+  render();
+}
 function scoreNode(node, raw) {
   const q = normalizeText(raw);
   if (!q) return 0;
@@ -664,7 +735,6 @@ function renderAnswer(item) {
             <div class="answer-summary">${nl2br(a.direct || "등록된 핵심 답변이 없습니다.")}</div>
             ${a.next_action ? `<details class="collapse-box" open><summary>추천사항</summary><div class="collapse-content">${nl2br(a.next_action)}</div></details>` : ""}
             ${legal.length ? `<details class="collapse-box"><summary>법적 근거</summary><div class="collapse-content evidence-list"><ul>${legal.map(x => `<li>${escapeHtml([x.law, x.article].filter(Boolean).join(" "))}</li>`).join("")}</ul></div></details>` : ""}
-            ${sourceDocs.length || sourceSummary ? `<details class="collapse-box"><summary>근거자료</summary><div class="collapse-content">${sourceSummary ? `<p>${escapeHtml(sourceSummary)}</p>` : ""}${sourceDocs.length ? `<ul>${sourceDocs.map(x => `<li>${escapeHtml(String(x))}</li>`).join("")}</ul>` : ""}</div></details>` : ""}
           </div>
           <div class="bubble-time">FAQ</div>
         </div>
@@ -679,6 +749,7 @@ function render() {
   const desc = document.getElementById("screenDesc");
   const searchWrap = document.getElementById("searchWrap");
   const current = nodeMap[currentId];
+  renderRouteNav(currentId);
   if (currentId === "ROOT") {
     title.textContent = "FAQ 홈";
     desc.textContent = lastSearchQuery ? "검색 결과를 확인하거나 카테고리를 선택해 주세요." : "카테고리를 선택해 주세요.";
