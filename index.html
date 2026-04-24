@@ -483,6 +483,16 @@ body {
 .usage-start-btn:active { transform: translateY(1px); }
 @media (max-width: 520px) { .intro-layer, .usage-layer { padding: 14px; } .usage-card { max-height: calc(100vh - 28px); border-radius: 22px; } }
 
+
+/* 답변 화면: 상단은 경로 네비게이션만 표시 */
+.panel.answer-mode .panel-head { padding: 10px 12px; }
+.panel.answer-mode .welcome-card { padding: 8px 10px; }
+.panel.answer-mode #screenTitle,
+.panel.answer-mode #screenDesc,
+.panel.answer-mode #searchWrap { display: none !important; }
+.panel.answer-mode #routeNav { margin: 0; }
+.chat-answer { scroll-margin-top: 12px; }
+.related-question-btn { text-align:left; }
 </style>
 
 <link rel="manifest" href="./manifest.webmanifest">
@@ -704,6 +714,25 @@ function renderMenuButton(item) {
   }
   return `<button class="menu-btn" onclick="openNode('${item.id}')">${escapeHtml(label)}</button>`;
 }
+function renderRelatedButton(item) {
+  const label = (item.ui && (item.ui.label || item.ui.question)) || item.id;
+  if (!isMenuEnabled(item)) return "";
+  return `<button class="menu-btn related-question-btn" onclick="openNodeFromRelated('${item.id}')">${escapeHtml(label)}</button>`;
+}
+function scrollAnswerToTop(smooth) {
+  const target = document.querySelector(".chat-answer") || document.getElementById("screenBody");
+  if (!target) return;
+  const behavior = smooth ? "smooth" : "auto";
+  target.scrollIntoView({ behavior, block: "start" });
+}
+function openNodeFromRelated(id) {
+  const target = nodeMap[id];
+  if (!target || !isMenuEnabled(target)) return;
+  if (currentId) historyStack.push(currentId);
+  currentId = id;
+  render();
+  window.setTimeout(function() { scrollAnswerToTop(true); }, 40);
+}
 function renderSearchResult(item) {
   const path = breadcrumbPath(item.id).slice(0, -1).map(n => (n.ui && (n.ui.label || n.ui.question)) || "").join(" > ");
   const keywords = Array.isArray(item.meta && item.meta.search_keywords) ? item.meta.search_keywords.slice(0, 6).join(", ") : "";
@@ -755,7 +784,7 @@ function renderAnswer(item) {
           <div class="bubble-time">FAQ</div>
         </div>
       </div>
-      ${related.length ? `<div class="related-wrap"><div class="small">관련 질문</div><div class="related">${related.map(renderMenuButton).join("")}</div></div>` : ""}
+      ${related.length ? `<div class="related-wrap"><div class="small">관련 질문</div><div class="related">${related.map(renderRelatedButton).join("")}</div></div>` : ""}
     </div>
   `;
 }
@@ -764,7 +793,9 @@ function render() {
   const title = document.getElementById("screenTitle");
   const desc = document.getElementById("screenDesc");
   const searchWrap = document.getElementById("searchWrap");
+  const panel = document.querySelector(".panel");
   const current = nodeMap[currentId];
+  if (panel) panel.classList.toggle("answer-mode", !!(current && current.type === "answer"));
   renderRouteNav(currentId);
   if (currentId === "ROOT") {
     title.textContent = "FAQ 홈";
@@ -785,7 +816,9 @@ function render() {
   searchWrap.style.display = "none";
   title.textContent = current && current.ui && (current.ui.question || current.ui.label) || "";
   if (current && current.type === "answer") {
-    desc.textContent = current.category ? current.category.name : "FAQ";
+    title.textContent = "";
+    desc.textContent = "";
+    if (searchWrap) searchWrap.style.display = "none";
     body.innerHTML = renderAnswer(current);
   } else {
     const children = getChildren(currentId).filter(isMenuEnabled);
@@ -799,7 +832,11 @@ function openNode(id) {
   if (currentId) historyStack.push(currentId);
   currentId = id;
   render();
-  window.scrollTo({ top:0, behavior:"auto" });
+  if (target.type === "answer") {
+    window.setTimeout(function() { scrollAnswerToTop(false); }, 20);
+  } else {
+    window.scrollTo({ top:0, behavior:"auto" });
+  }
 }
 function goBack() {
   if (!historyStack.length) {
