@@ -913,5 +913,59 @@ bindSearch();
 initFromQuery();
 
 </script>
+  <script>
+  const CURRENT_VERSION = "2026.04.24-01";
+
+  async function checkForUpdate() {
+    try {
+      const response = await fetch("./version.json?time=" + Date.now());
+      const data = await response.json();
+
+      if (data.version && data.version !== CURRENT_VERSION) {
+        showUpdateNotice(data.message || "새 버전이 있습니다.");
+      }
+    } catch (error) {
+      console.log("업데이트 확인 실패:", error);
+    }
+  }
+
+  function showUpdateNotice(message) {
+    const notice = document.createElement("div");
+    notice.style.position = "fixed";
+    notice.style.left = "16px";
+    notice.style.right = "16px";
+    notice.style.bottom = "16px";
+    notice.style.zIndex = "99999";
+    notice.style.padding = "16px";
+    notice.style.borderRadius = "16px";
+    notice.style.background = "#005F9B";
+    notice.style.color = "#fff";
+    notice.style.boxShadow = "0 8px 24px rgba(0,0,0,0.25)";
+    notice.style.fontSize = "15px";
+    notice.style.lineHeight = "1.5";
+    notice.innerHTML = `
+      <strong>새 업데이트가 있습니다.</strong><br>
+      ${message}<br>
+      <button id="reloadForUpdate" style="
+        margin-top:10px;
+        width:100%;
+        padding:10px;
+        border:0;
+        border-radius:10px;
+        background:#fff;
+        color:#005F9B;
+        font-weight:700;
+      ">최신 버전으로 새로고침</button>
+    `;
+
+    document.body.appendChild(notice);
+
+    document.getElementById("reloadForUpdate").addEventListener("click", function () {
+      location.reload(true);
+    });
+  }
+
+  checkForUpdate();
+</script>
 </body>
 </html>
