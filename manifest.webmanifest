@@ -1,7 +1,7 @@
 {
-  "name": "수도권관제센터 FAQ v15.2",
+  "name": "수도권관제센터 FAQ v15.3",
   "short_name": "K-eco FAQ",
-  "description": "수도권관제센터 FAQ v15.2 - 업무편람 e-book 열람, 업데이트 버전 안내, 시스템 답변 이미지 관리 개선, 신뢰성시험 수검 메뉴 추가 반영본",
+  "description": "수도권관제센터 FAQ v15.3 - 업무편람 e-book 모바일 UI/UX, 검색, 스와이프, 업데이트 예정 메뉴 시각화 반영본",
   "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",

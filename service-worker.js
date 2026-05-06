@@ -1,4 +1,4 @@
-const CACHE_NAME = "keco-faq-v15-2-ebook-update-versioned-images-20260506";
+const CACHE_NAME = "keco-faq-v15-3-ebook-mobile-search-disabled-menu-20260506";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -24,7 +24,8 @@ const PRECACHE_URLS = [
   "./images/FAQ-D-014_remote_search_history.jpg",
   "./manuals/cover_tms_remote_monitoring_manual_2025.jpg",
   "./manuals/cover_total_management_manual_2026.jpg",
-  "./manuals/tms_ebook/page-001.jpg"
+  "./manuals/tms_ebook/page-001.jpg",
+  "./manuals/tms_ebook/search_index.json"
 ];
 
 self.addEventListener("install", (event) => {
@@ -86,6 +87,11 @@ self.addEventListener("fetch", (event) => {
 
   if (url.pathname.endsWith("/version.json") || url.pathname.endsWith("version.json")) {
     event.respondWith(networkFirst(event, "./version.json"));
+    return;
+  }
+
+  if (url.pathname.endsWith("/manuals/tms_ebook/search_index.json") || url.pathname.endsWith("search_index.json")) {
+    event.respondWith(networkFirst(event, "./manuals/tms_ebook/search_index.json"));
     return;
   }
 
