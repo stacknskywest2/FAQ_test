@@ -1,7 +1,7 @@
 {
-  "version": "v15.3",
-  "version_tag": "v15.3-ebook-mobile-search-disabled-menu-20260506",
-  "release_date": "2026-05-06",
-  "build_id": "v15.3-20260506",
-  "message": "업무편람 e-book 모바일 UI/UX 개선, 좌우 스와이프 페이지 이동, 키워드 검색 페이지 이동, 업데이트 예정 메뉴 비활성화 시각화 반영본"
+  "version": "v15.3.5",
+  "version_tag": "v15.3.5-menu-render-fix-20260521",
+  "release_date": "2026-05-21",
+  "build_id": "v15.3.5-20260521",
+  "message": "UI 긴급수정: 누락된 화면 상태 변수와 특수 페이지 상수를 복원하여 홈 카테고리 메뉴가 정상 표시되도록 수정했습니다."
 }

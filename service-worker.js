@@ -1,4 +1,4 @@
-const CACHE_NAME = "keco-faq-v15-3-ebook-mobile-search-disabled-menu-20260506";
+const CACHE_NAME = "gulttuk-faq-v15-3-5-menu-render-fix-20260521";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -44,7 +44,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(keys.map((key) => {
-        if (key !== CACHE_NAME && key.indexOf("keco-faq-") === 0) return caches.delete(key);
+        if (key !== CACHE_NAME && (key.indexOf("keco-faq-") === 0 || key.indexOf("gulttuk-faq-") === 0)) return caches.delete(key);
       })))
       .then(() => self.clients.claim())
   );

@@ -1,13 +1,13 @@
 {
-  "name": "수도권관제센터 FAQ v15.3",
-  "short_name": "K-eco FAQ",
-  "description": "수도권관제센터 FAQ v15.3 - 업무편람 e-book 모바일 UI/UX, 검색, 스와이프, 업데이트 예정 메뉴 시각화 반영본",
+  "name": "굴뚝 FAQ",
+  "short_name": "굴뚝 FAQ",
+  "description": "굴뚝 FAQ v15.3.5 - 카테고리 메뉴 렌더링 복구, 추천사항 제거, 법령 원문 전체 반영, 앱 이름 정합화",
   "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#b2c7d9",
+  "background_color": "#e8f5fb",
   "theme_color": "#055F9B",
   "lang": "ko-KR",
   "icons": [
