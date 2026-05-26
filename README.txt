@@ -1,10 +1,13 @@
-HTML package README
+굴뚝 FAQ v15.4
 
-v15.3.5 변경사항
-- 화면 표시 버전과 실제 배포 버전을 v15.3.5로 일치
-- 앱으로 저장 시 표시 이름을 "굴뚝 FAQ"로 변경
-- manifest.webmanifest name/short_name, iOS apple-mobile-web-app-title, 설치 안내 문구 정리
-- service-worker 캐시명 갱신
-- v15.3.3의 추천사항 메뉴 제거 및 법령조회 원문 전체 텍스트 반영 유지
+반영내용:
+- 사업장대기오염물질관리시스템 카테고리의 질문·답변을 첨부 이미지 page-280~297 기준으로 순차형 사용방법 안내 구조로 재작성
+- 답변별 이미지 파일을 HTML_package/images/FAQ-D-*.jpg에 연결
+- DB 엑셀자료, 보관용 JSON, CSV, HTML 내장 FAQ_DATA를 동일하게 갱신
+- 사업장대기오염물질관리시스템 외 카테고리와 v15.3.5 UI 기능은 유지
 
-[v15.3.5] 카테고리 메뉴 렌더링 복구: 누락된 화면 상태 변수 및 특수페이지 상수 선언 복원.
+배포파일:
+- HTML_package/index.html
+- HTML_package/faq-data.json
+- HTML_package/service-worker.js
+- HTML_package/version.json

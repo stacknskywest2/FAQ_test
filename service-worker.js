@@ -1,4 +1,4 @@
-const CACHE_NAME = "gulttuk-faq-v15-3-5-menu-render-fix-20260521";
+const CACHE_NAME = "gulttuk-faq-v15-4-system-category-rebuild-20260526";
 const PRECACHE_URLS = [
   "./",
   "./index.html",

@@ -1,7 +1,14 @@
 {
-  "version": "v15.3.5",
-  "version_tag": "v15.3.5-menu-render-fix-20260521",
-  "release_date": "2026-05-21",
-  "build_id": "v15.3.5-20260521",
-  "message": "UI 긴급수정: 누락된 화면 상태 변수와 특수 페이지 상수를 복원하여 홈 카테고리 메뉴가 정상 표시되도록 수정했습니다."
+  "version": "v15.4",
+  "version_tag": "v15.4-system-category-rebuild-20260526",
+  "release_date": "2026-05-26",
+  "build_id": "v15.4-20260526",
+  "message": "사업장대기오염물질관리시스템 카테고리를 첨부 이미지 기준 순차형 사용방법 안내로 재구성했습니다.",
+  "force_update": false,
+  "changes": [
+    "사업장대기오염물질관리시스템 질문·답변 15건 재작성",
+    "page-280~297 이미지 18개를 답변별 이미지로 연결",
+    "DB 엑셀·CSV·JSON·HTML 반영",
+    "그 외 카테고리와 v15.3.5 UI 기능 유지"
+  ]
 }

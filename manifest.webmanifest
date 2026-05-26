@@ -1,7 +1,7 @@
 {
   "name": "굴뚝 FAQ",
   "short_name": "굴뚝 FAQ",
-  "description": "굴뚝 FAQ v15.3.5 - 카테고리 메뉴 렌더링 복구, 추천사항 제거, 법령 원문 전체 반영, 앱 이름 정합화",
+  "description": "굴뚝 FAQ v15.4 - 사업장대기오염물질관리시스템 카테고리 이미지 기반 재구성",
   "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",
