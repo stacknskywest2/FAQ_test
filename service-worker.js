@@ -1,4 +1,4 @@
-const CACHE_NAME = "gulttuk-faq-v15-4-system-category-rebuild-20260526";
+const CACHE_NAME = "gulttuk-faq-v15-4-1-update-check-20260526";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -8,20 +8,24 @@ const PRECACHE_URLS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",
-  "./images/FAQ-D-001_system_address.jpg",
-  "./images/FAQ-D-002_login_flow.jpg",
-  "./images/FAQ-D-003_mobile_login.jpg",
-  "./images/FAQ-D-004_account_type.jpg",
-  "./images/FAQ-D-005_center_contact.jpg",
-  "./images/FAQ-D-006_primary_manager_change.jpg",
-  "./images/FAQ-D-007_secondary_manager.jpg",
-  "./images/FAQ-D-008_signup_approval.jpg",
-  "./images/FAQ-D-009_notification_service.jpg",
-  "./images/FAQ-D-010_permit_card_upload.jpg",
-  "./images/FAQ-D-011_forecast_level.jpg",
-  "./images/FAQ-D-012_received_data.jpg",
-  "./images/FAQ-D-013_charge_lookup.jpg",
-  "./images/FAQ-D-014_remote_search_history.jpg",
+  "./images/FAQ-D-001_system_overview_access_p280.jpg",
+  "./images/FAQ-D-002_signup_login_flow_p281.jpg",
+  "./images/FAQ-D-003_terms_business_lookup_p282.jpg",
+  "./images/FAQ-D-003_terms_business_lookup_p283.jpg",
+  "./images/FAQ-D-004_contact_approval_stonepass_p284.jpg",
+  "./images/FAQ-D-004_contact_approval_stonepass_p285.jpg",
+  "./images/FAQ-D-005_business_basic_info_p286.jpg",
+  "./images/FAQ-D-005_business_basic_info_p287.jpg",
+  "./images/FAQ-D-005_business_basic_info_p288.jpg",
+  "./images/FAQ-D-006_outlet_detail_p289.jpg",
+  "./images/FAQ-D-007_emission_facility_p290.jpg",
+  "./images/FAQ-D-008_emission_facility_detail_p291.jpg",
+  "./images/FAQ-D-009_prevention_facility_p292.jpg",
+  "./images/FAQ-D-010_accuracy_test_p293.jpg",
+  "./images/FAQ-D-011_standard_gas_p294.jpg",
+  "./images/FAQ-D-012_received_and_exceedance_p295.jpg",
+  "./images/FAQ-D-014_period_emission_p296.jpg",
+  "./images/FAQ-D-015_operation_status_p297.jpg",
   "./manuals/cover_tms_remote_monitoring_manual_2025.jpg",
   "./manuals/cover_total_management_manual_2026.jpg",
   "./manuals/tms_ebook/page-001.jpg",
@@ -29,15 +33,11 @@ const PRECACHE_URLS = [
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)));
 });
 
 self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
+  if (event.data && event.data.type === "SKIP_WAITING") self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -79,21 +79,17 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-
   if (req.mode === "navigate" || (req.headers.get("accept") || "").includes("text/html")) {
     event.respondWith(networkFirst(event, "./index.html"));
     return;
   }
-
   if (url.pathname.endsWith("/version.json") || url.pathname.endsWith("version.json")) {
     event.respondWith(networkFirst(event, "./version.json"));
     return;
   }
-
   if (url.pathname.endsWith("/manuals/tms_ebook/search_index.json") || url.pathname.endsWith("search_index.json")) {
     event.respondWith(networkFirst(event, "./manuals/tms_ebook/search_index.json"));
     return;
   }
-
   event.respondWith(cacheFirst(event));
 });

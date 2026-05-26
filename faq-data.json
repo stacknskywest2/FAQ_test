@@ -1,6 +1,6 @@
 {
-  "version": "v15.4-system-category-rebuild-20260526",
-  "generated_from": "KECO_FAQ_DB_master_v15.4.xlsx",
+  "version": "v15.4.1-update-check-20260526",
+  "generated_from": "KECO_FAQ_DB_master_v15.4.1.xlsx",
   "node_count": 298,
   "answer_count": 220,
   "categories": [
@@ -20270,9 +20270,11 @@
     "recommendation_menu": "v15.3.3부터 추천사항 메뉴와 answer_next_action DB 필드는 사용하지 않음.",
     "v1534_changes": "화면 표시 버전을 실제 배포 버전(v15.3.4)과 일치시키고, PWA/홈 화면 저장 앱 이름을 굴뚝 FAQ로 변경.",
     "app_name": "굴뚝 FAQ",
-    "display_version": "v15.4",
+    "display_version": "v15.4.1",
     "v1535_changes": "v15.3.4에서 누락된 화면 상태 변수(nodeMap/currentId/historyStack/lastSearchQuery/searchCollapsed) 및 특수페이지 상수를 복원하여 홈 카테고리 메뉴와 하위 메뉴 렌더링을 정상화했습니다.",
-    "v154_changes": "사업장대기오염물질관리시스템 카테고리의 질문·답변·이미지를 첨부 이미지(page 280~297) 기준으로 순차형 사용방법 안내 구조로 재구성. 그 외 카테고리와 기존 v15.3.5 UI 기능은 유지."
+    "v154_changes": "사업장대기오염물질관리시스템 카테고리의 질문·답변·이미지를 첨부 이미지(page 280~297) 기준으로 순차형 사용방법 안내 구조로 재구성. 그 외 카테고리와 기존 v15.3.5 UI 기능은 유지.",
+    "v1541_changes": "화면 우측상단 버전 버튼 클릭 시 업데이트 현황 확인 팝업을 표시하고, 최신 버전이 있으면 업데이트 실행 버튼으로 캐시 삭제 및 새로고침을 수행하도록 기능 추가.",
+    "update_status_popup": "버전 배지 버튼은 version.json을 no-store 방식으로 확인하여 현재 버전과 최신 배포 버전을 비교하고, 최신 버전이 더 높을 때만 업데이트 실행 버튼을 표시합니다."
   },
   "visible_answer_count": 220
 }

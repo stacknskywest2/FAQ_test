@@ -1,7 +1,7 @@
 {
   "name": "굴뚝 FAQ",
   "short_name": "굴뚝 FAQ",
-  "description": "굴뚝 FAQ v15.4 - 사업장대기오염물질관리시스템 카테고리 이미지 기반 재구성",
+  "description": "굴뚝 FAQ v15.4.1 - 버전 버튼 업데이트 현황 확인 기능 추가",
   "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",
