@@ -1,4 +1,4 @@
-const CACHE_NAME = "gulttuk-faq-v15-4-1-update-check-20260526";
+const CACHE_NAME = "gulttuk-faq-v15-5-es019-ebook-20260526";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -29,7 +29,49 @@ const PRECACHE_URLS = [
   "./manuals/cover_tms_remote_monitoring_manual_2025.jpg",
   "./manuals/cover_total_management_manual_2026.jpg",
   "./manuals/tms_ebook/page-001.jpg",
-  "./manuals/tms_ebook/search_index.json"
+  "./manuals/tms_ebook/search_index.json",
+  "./manuals/es019/es01901_1e/page-001.jpg",
+  "./manuals/es019/es01901_1e/search_index.json",
+  "./manuals/es019/es01901_1e/es01901_1e.pdf",
+  "./manuals/es019/es01901_2c/page-001.jpg",
+  "./manuals/es019/es01901_2c/search_index.json",
+  "./manuals/es019/es01901_2c/es01901_2c.pdf",
+  "./manuals/es019/es01902_1a/page-001.jpg",
+  "./manuals/es019/es01902_1a/search_index.json",
+  "./manuals/es019/es01902_1a/es01902_1a.pdf",
+  "./manuals/es019/es01903_1a/page-001.jpg",
+  "./manuals/es019/es01903_1a/search_index.json",
+  "./manuals/es019/es01903_1a/es01903_1a.pdf",
+  "./manuals/es019/es01904_1a/page-001.jpg",
+  "./manuals/es019/es01904_1a/search_index.json",
+  "./manuals/es019/es01904_1a/es01904_1a.pdf",
+  "./manuals/es019/es01905_1a/page-001.jpg",
+  "./manuals/es019/es01905_1a/search_index.json",
+  "./manuals/es019/es01905_1a/es01905_1a.pdf",
+  "./manuals/es019/es01906_1a/page-001.jpg",
+  "./manuals/es019/es01906_1a/search_index.json",
+  "./manuals/es019/es01906_1a/es01906_1a.pdf",
+  "./manuals/es019/es01907_1a/page-001.jpg",
+  "./manuals/es019/es01907_1a/search_index.json",
+  "./manuals/es019/es01907_1a/es01907_1a.pdf",
+  "./manuals/es019/es01908_1a/page-001.jpg",
+  "./manuals/es019/es01908_1a/search_index.json",
+  "./manuals/es019/es01908_1a/es01908_1a.pdf",
+  "./manuals/es019/es01909_1a/page-001.jpg",
+  "./manuals/es019/es01909_1a/search_index.json",
+  "./manuals/es019/es01909_1a/es01909_1a.pdf",
+  "./manuals/es019/es01910_1d/page-001.jpg",
+  "./manuals/es019/es01910_1d/search_index.json",
+  "./manuals/es019/es01910_1d/es01910_1d.pdf",
+  "./manuals/es019/es01911_1b/page-001.jpg",
+  "./manuals/es019/es01911_1b/search_index.json",
+  "./manuals/es019/es01911_1b/es01911_1b.pdf",
+  "./manuals/es019/es01914_1d/page-001.jpg",
+  "./manuals/es019/es01914_1d/search_index.json",
+  "./manuals/es019/es01914_1d/es01914_1d.pdf",
+  "./manuals/es019/es01915_1c/page-001.jpg",
+  "./manuals/es019/es01915_1c/search_index.json",
+  "./manuals/es019/es01915_1c/es01915_1c.pdf"
 ];
 
 self.addEventListener("install", (event) => {
@@ -87,8 +129,8 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(networkFirst(event, "./version.json"));
     return;
   }
-  if (url.pathname.endsWith("/manuals/tms_ebook/search_index.json") || url.pathname.endsWith("search_index.json")) {
-    event.respondWith(networkFirst(event, "./manuals/tms_ebook/search_index.json"));
+  if (url.pathname.endsWith("search_index.json")) {
+    event.respondWith(networkFirst(event));
     return;
   }
   event.respondWith(cacheFirst(event));
