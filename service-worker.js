@@ -1,4 +1,4 @@
-const CACHE_NAME = "gulttuk-faq-v15-5-es019-ebook-20260526";
+const CACHE_NAME = "gulttuk-faq-v15-5-1-law-annex-20260602";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -71,7 +71,14 @@ const PRECACHE_URLS = [
   "./manuals/es019/es01914_1d/es01914_1d.pdf",
   "./manuals/es019/es01915_1c/page-001.jpg",
   "./manuals/es019/es01915_1c/search_index.json",
-  "./manuals/es019/es01915_1c/es01915_1c.pdf"
+  "./manuals/es019/es01915_1c/es01915_1c.pdf",
+  "./laws/법령_대기관리권역의 대기환경개선에 관한 특별법 시행령_별표모음.pdf",
+  "./laws/법령_대기관리권역의 대기환경개선에 관한 특별법 시행규칙_별표모음.pdf",
+  "./laws/법령_대기환경보전법 시행령_별표모음.pdf",
+  "./laws/법령_대기환경보전법 시행규칙_별표모음.pdf",
+  "./laws/법령_환경오염시설의 통합관리에 관한 법률 시행령_별표모음.pdf",
+  "./laws/법령_환경오염시설의 통합관리에 관한 법률 시행규칙_별표모음.pdf",
+  "./laws/README_law_annexes_v15.5.1.txt",
 ];
 
 self.addEventListener("install", (event) => {
