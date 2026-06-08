@@ -1,14 +1,10 @@
 {
-  "version": "v15.5.1",
-  "version_tag": "v15.5.1-law-annex-20260602",
-  "release_date": "2026-06-02",
-  "build_id": "v15.5.1-20260602",
-  "message": "관련법령 중 별표·별지 원문 미등록 항목을 추가 업로드된 법령 별표모음 PDF 기준으로 보완했습니다.",
-  "force_update": false,
-  "changes": [
-    "법령 별표모음 PDF 6종을 HTML_package/laws에 포함",
-    "법령조회 원문 없음으로 표시되던 별표 항목 중 확인 가능한 항목을 팝업 원문으로 반영",
-    "관련법령 표시명을 시행령·시행규칙 단위로 보정",
-    "service-worker 캐시명을 v15.5.1로 갱신"
-  ]
+  "version": "v15.6",
+  "version_tag": "v15.6-legal-review-ttumi-20260608",
+  "release_date": "2026-06-08",
+  "build_id": "v15.6-20260608",
+  "app_name": "뚜미 FAQ",
+  "message": "v15.6: CAT_E 업데이트 예정 카테고리 삭제, 관련법령 DB 재검토 및 오연결 조문 정리, Android/iPhone 앱으로 저장 안내 추가, 앱 이름과 첫 화면을 뚜미 FAQ 기준으로 변경, HTML 구조 단순화.",
+  "required_refresh": true,
+  "files": ["index.html", "faq-data.json", "manifest.webmanifest", "service-worker.js"]
 }
