@@ -1,10 +1,8 @@
 {
   "version": "v15.6",
-  "version_tag": "v15.6-legal-review-ttumi-20260608",
+  "version_tag": "v15.6",
   "release_date": "2026-06-08",
   "build_id": "v15.6-20260608",
   "app_name": "뚜미 FAQ",
-  "message": "v15.6: CAT_E 업데이트 예정 카테고리 삭제, 관련법령 DB 재검토 및 오연결 조문 정리, Android/iPhone 앱으로 저장 안내 추가, 앱 이름과 첫 화면을 뚜미 FAQ 기준으로 변경, HTML 구조 단순화.",
-  "required_refresh": true,
-  "files": ["index.html", "faq-data.json", "manifest.webmanifest", "service-worker.js"]
+  "notes": "상위 카테고리 삭제, 관련법령 DB 정정, 앱 저장 안내 및 PWA 앱명 변경 반영"
 }
