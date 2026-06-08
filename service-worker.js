@@ -1,4 +1,4 @@
-const CACHE_NAME = "ttumi-faq-v15-6-20260608";
+const CACHE_NAME = 'ttumi-faq-v15-6-1-20260608';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const PRECACHE_URLS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",
+  "./icons/keco-logo.png",
   "./images/FAQ-D-001_system_overview_access_p280.jpg",
   "./images/FAQ-D-002_signup_login_flow_p281.jpg",
   "./images/FAQ-D-003_terms_business_lookup_p282.jpg",
