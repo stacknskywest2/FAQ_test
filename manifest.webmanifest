@@ -1,7 +1,7 @@
 {
   "name": "뚜미 FAQ",
   "short_name": "뚜미 FAQ",
-  "description": "굴뚝 도우미 뚜미의 FAQ v15.6.2.1",
+  "description": "굴뚝 도우미 뚜미의 FAQ v15.6.2.2",
   "id": "/ttumi-faq/",
   "start_url": "./index.html",
   "scope": "./",

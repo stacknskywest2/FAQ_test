@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ttumi-faq-v15-6-2-1-20260609';
+const CACHE_NAME = 'ttumi-faq-v15-6-2-2-20260609';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
