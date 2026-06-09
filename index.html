@@ -2044,7 +2044,7 @@ function jumpToRoute(id) {
   render();
 }
 
-const REACHABILITY_GOAL = "사용자가 원하는 질문에 도달할 수 있는가";
+const REACHABILITY_GOAL = "주제를 선택하면 관련 FAQ를 자동검색 합니다.";
 const SEARCH_SUGGESTIONS = ["개선계획서", "초과사유", "상태표시", "D/L", "양식", "업무편람", "TMS 고장", "데이터로거", "총량 대상"];
 const SEARCH_QUERY_ALIASES = {
   "초과사유": "운영현황 보고 허용기준 초과 사유 기준치 초과이력 초과이력 조회",
@@ -2632,7 +2632,7 @@ function render() {
   }
   if (currentId === "ROOT") {
     title.textContent = "FAQ 홈";
-    desc.textContent = lastSearchQuery ? "검색 결과를 확인하거나 빠른 입구·카테고리를 선택해 주세요." : "빠른 입구 또는 카테고리를 선택해 주세요.";
+    desc.textContent = lastSearchQuery ? "검색 결과를 확인하거나 빠른 입구·카테고리를 선택해 주세요." : "굼금한 것을 검색하거나 화면을 아래로 내려 주제를 선택하세요.";
     searchWrap.style.display = "block";
     const categories = homeChildren();
     const catHtml = renderReachabilityShortcuts() + renderHomeActions() + `<div class="menu-list two-col">${categories.map(renderMenuButton).join("")}</div>` + renderManualCards();
