@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ttumi-faq-v15-6-3-20260611';
+const CACHE_NAME = 'gulttuk-helper-v16-0-0-20260618-rebuild';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -8,6 +8,11 @@ const PRECACHE_URLS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",
+  "./icons/ttumi-basic.png",
+  "./icons/ttumi-alert.png",
+  "./icons/ttumi-data.png",
+  "./icons/ttumi-check.png",
+  "./icons/ttumi-guide.png",
   "./icons/keco-logo.png",
   "./images/FAQ-D-001_system_overview_access_p280.jpg",
   "./images/FAQ-D-002_signup_login_flow_p281.jpg",
@@ -94,7 +99,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(keys.map((key) => {
-        if (key !== CACHE_NAME && (key.indexOf("keco-faq-") === 0 || key.indexOf("gulttuk-faq-") === 0 || key.indexOf("ttumi-faq-") === 0)) return caches.delete(key);
+        if (key !== CACHE_NAME && (key.indexOf("keco-faq-") === 0 || key.indexOf("gulttuk-faq-") === 0 || key.indexOf("gulttuk-helper-") === 0 || key.indexOf("ttumi-faq-") === 0)) return caches.delete(key);
       })))
       .then(() => self.clients.claim())
   );

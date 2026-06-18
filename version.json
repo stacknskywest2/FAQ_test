@@ -1,19 +1,24 @@
 {
-  "version": "v15.6.3",
-  "version_tag": "v15.6.3-security-clean-public-data-20260611",
-  "release_date": "2026-06-11",
-  "build_id": "v15.6.3-20260611",
-  "app_name": "뚜미 FAQ",
-  "goal": "사용자가 원하는 질문에 도달할 수 있는가",
-  "message": "v15.6.2.2 배포 전 통합점검 결과를 반영한 공개용 데이터 정제 및 PWA 무결성 보강 패치",
+  "version": "v16.0.0",
+  "version_tag": "v16.0.0-mobile-app-home-rebuild-20260618",
+  "release_date": "2026-06-18",
+  "build_id": "v16.0.0-20260618-rebuild",
+  "app_name": "굴뚝도우미",
+  "faq_name": "굴뚝 도우미 FAQ",
+  "goal": "정돈된 FAQ가 아니라 초급 실무자가 막힌 업무를 바로 해결하는 모바일 앱형 굴뚝도우미를 만든다",
+  "message": "모바일 앱형 업무 해결 홈 UI 전면 재개발본",
   "changes": [
-    "공개용 FAQ_DATA 및 faq-data.json에서 내부 관리성 메타데이터 제거",
-    "review_required, review_reason, visibility_status, source_docs, source_pages, source_summary, build_summary 등 공개 부적합 필드 제거",
-    "법령조회에 필요한 law, article, summary, text와 화면 표시에 필요한 최소 필드만 유지",
-    "답변 이미지 메타데이터에서 내부 출처관리 필드를 제거하고 src, alt, caption만 유지",
-    "service-worker 캐시명을 v15.6.3으로 갱신",
-    "service-worker 프리캐시 대상 법령 별표 PDF 6종을 패키지 laws 폴더에 포함하여 캐시 누락 문제 해소",
-    "version.json, manifest.webmanifest, index.html 표시 버전 일치화",
-    "e-book 검색 색인 오류 안내문을 문서별 경로 확인 문구로 일반화"
-  ]
+    "홈화면을 모바일 앱형 업무 해결 홈으로 전면 재개발",
+    "상단 앱바를 굴뚝도우미, 앱 저장, 업데이트만 남기는 얇은 구조로 재설계",
+    "뚜미 말풍선을 히어로 영역에 배치하여 안내자 역할 강화",
+    "검색창을 홈화면 핵심 기능으로 확대하고 추천어는 4개만 우선 노출",
+    "빠른 해결 카드 6개를 내장 SVG 아이콘, 한 줄 버튼명, 한 줄 보조 설명 구조로 재구성",
+    "많이 찾는 업무 칩 6개를 별도 영역으로 구성",
+    "업무분야 카드를 보조 진입로로 후순위 배치",
+    "A/B/C/D 코드칩 및 긴 공공문서형 안내문 노출 방지",
+    "FAQ 데이터 구조, 검색 로직, 관련법령 렌더링, display_yn 필터, 외부 리소스 정책 유지"
+  ],
+  "build": "20260618-v1600-mobile-app-home-rebuild",
+  "label": "v16.0.0 모바일 앱형 홈 UI 전면 재개발본",
+  "description": "검색창, 빠른 해결 카드, 많이 찾는 업무, 업무분야 보조 진입로로 홈화면을 재구성한 v16.0.0 재개발본입니다."
 }

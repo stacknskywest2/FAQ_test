@@ -1,14 +1,14 @@
 {
-  "name": "뚜미 FAQ",
-  "short_name": "뚜미 FAQ",
-  "description": "굴뚝 도우미 뚜미의 FAQ v15.6.3",
-  "id": "/ttumi-faq/",
+  "name": "굴뚝도우미",
+  "short_name": "굴뚝도우미",
+  "description": "굴뚝도우미 모바일 업무 해결 홈 v16.0.0",
+  "id": "/gulttuk-helper/",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#e8f5fb",
-  "theme_color": "#055F9B",
+  "background_color": "#e8fbff",
+  "theme_color": "#0968d8",
   "lang": "ko-KR",
   "icons": [
     {
