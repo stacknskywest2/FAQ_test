@@ -1887,6 +1887,12 @@ body {
 .home-quick-actions { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px; }
 .home-quick-btn { min-height:42px; border:none; border-radius:16px; background:#fff; color:#0968a8; font-size:13px; font-weight:950; box-shadow:0 6px 14px rgba(5,95,155,.07); white-space:nowrap; }
 .home-quick-btn.secondary { background:#f2fff8; color:#067a5e; }
+.panel.home-mode .manual-section { margin:10px 0 0; padding:0; border-top:none; }
+.panel.home-mode .manual-section-title { color:#29445e; font-size:15px; font-weight:950; margin:0 2px 8px; letter-spacing:-.03em; }
+.panel.home-mode .manual-section-desc { margin:0 2px 10px; color:var(--app-muted); font-size:11.5px; line-height:1.35; }
+.panel.home-mode .manual-card { border:none; border-radius:18px; box-shadow:0 10px 24px rgba(5,95,155,.08); background:rgba(255,255,255,.9); }
+.panel.home-mode .manual-card-cover { height:128px; background:#edf8ff; }
+.panel.home-mode .manual-download-btn { box-shadow:0 8px 18px rgba(5,95,155,.09); }
 .panel.home-mode + .bottom-nav { display:none !important; }
 .bottom-nav button { white-space:nowrap; }
 @media (max-width:520px) {
@@ -2971,7 +2977,8 @@ function renderHomeActions() {
   return '<section class="home-support-card starter-section" aria-label="처음 이용한다면">' +
     '<div class="home-support-title">처음 이용한다면</div>' +
     '<div class="home-quick-actions"><button type="button" class="home-quick-btn helper-action" onclick="openUsagePage()">사용방법 보기</button><button type="button" class="home-quick-btn secondary helper-action" onclick="openManualViewer(\'tms\')">업무편람 바로보기</button></div>' +
-  '</section>';
+  '</section>' +
+  renderManualCards();
 }
 function renderUsagePage() {
   return '<div class="usage-page-card">' +
