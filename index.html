@@ -624,7 +624,7 @@ body {
   box-shadow:0 22px 60px rgba(5,95,155,.16);
   animation:logoBreathe 1s ease both;
 }
-.keco-logo-img { width:min(70vw, 275px); height:auto; display:block; object-fit:contain; overflow:visible; }
+.keco-logo-img { width:min(70vw, 275px); height:auto; display:block; }
 .keco-logo-subtitle { font-size:12.5px; line-height:1.45; font-weight:800; color:rgba(0,0,0,.54); letter-spacing:-.025em; }
 @keyframes introBubble { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.03); } }
 @keyframes splashCardIn { 0% { opacity: 0; transform: translateY(14px) scale(.94); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
@@ -1937,14 +1937,14 @@ body {
     <div class="splash-logo-card">
       <span class="splash-spark one" aria-hidden="true"></span>
       <span class="splash-spark two" aria-hidden="true"></span>
-      <div class="splash-mascot-wrap"><img class="splash-mascot" src="./icons/ttumi-basic.png?v=v16.0.1.1" alt="굴뚝 도우미 뚜미 신규 캐릭터" /></div>
+      <div class="splash-mascot-wrap"><img class="splash-mascot" src="./icons/ttumi-intro.png" alt="굴뚝 도우미 뚜미 신규 캐릭터" /></div>
       <div class="splash-title">굴<span class="splash-highlight">뚝</span> 도우미 <strong>뚜<span class="splash-highlight">미</span></strong>의 FAQ</div>
       <div class="splash-subtitle">한국환경공단 수도권관제센터</div>
     </div>
   </div>
   <div id="logoStage" class="intro-stage logo-stage" aria-label="한국환경공단 로고 화면">
     <div class="keco-logo-card">
-      <img class="keco-logo-img" src="./icons/keco-logo.png?v=v16.0.1.1" alt="한국환경공단 로고" />
+      <img class="keco-logo-img" src="./icons/keco-logo-intro.png" alt="한국환경공단 로고" />
       <div class="keco-logo-subtitle">깨끗한 대기환경을 위한 정확한 안내</div>
     </div>
   </div>
@@ -2029,9 +2029,9 @@ body {
 
 <script>
 
-const APP_VERSION = "v16.0.1.1";
-const APP_RELEASE_DATE = "2026-06-22";
-const APP_BUILD_ID = "v16.0.1.1-20260622-logo-rebuild";
+const APP_VERSION = "v16.0.0";
+const APP_RELEASE_DATE = "2026-06-08";
+const APP_BUILD_ID = "v16.0.0-20260618";
 const VERSION_INFO_URL = "./version.json";
 
 const APP_ICON_DATA = "./icons/icon-192.png";
