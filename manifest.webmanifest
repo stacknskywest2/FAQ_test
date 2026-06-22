@@ -1,7 +1,7 @@
 {
   "name": "굴뚝도우미",
   "short_name": "굴뚝도우미",
-  "description": "굴뚝도우미 모바일 업무 해결 홈 v16.0.0",
+  "description": "굴뚝도우미 모바일 업무 해결 홈 v16.0.1.1",
   "id": "/gulttuk-helper/",
   "start_url": "./index.html",
   "scope": "./",
