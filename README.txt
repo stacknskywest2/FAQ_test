@@ -1,31 +1,17 @@
-GulttukHelper v16.0.1.1 수정 파일 안내
+GulttukHelper v16.0.0 intro/update-alert fix
 
-1. 패치 목적
-- v16.0.1 적용 후에도 인트로의 한국환경공단 로고 심벌마크 아래쪽이 잘려 보이는 문제를 재수정했습니다.
-- 기존 v16.0.1은 잘린 로고 이미지에 투명 여백을 추가한 방식이어서, 이미 손실된 심벌 하단 형상을 복원하지 못했습니다.
-- 이번 v16.0.1.1은 한국환경공단 CI 자료의 심벌마크를 기준으로 로고 이미지를 다시 구성했습니다.
+적용 목적
+- 서비스 표시 버전은 v16.0.0으로 유지
+- 인트로 전용 투명 뚜미 이미지와 잘리지 않는 로고 이미지 적용
+- '업데이트가 배포되었습니다' 자동 알림 반복 노출 방지
 
-2. 수정 파일
-- /index.html
-- /service-worker.js
-- /version.json
-- /manifest.webmanifest
-- /README.txt
-- /icons/keco-logo.png
+GitHub Pages에 덮어쓸 파일
+/index.html
+/version.json
+/service-worker.js
+/icons/ttumi-intro.png
+/icons/keco-logo-intro.png
 
-3. GitHub Pages 반영 방법
-- 위 파일을 기존 배포 폴더의 동일 경로에 덮어쓰기 하십시오.
-- 특히 /icons/keco-logo.png는 파일명을 바꾸지 말고 기존 파일에 덮어써야 합니다.
-
-4. 적용 후 확인
-- 브라우저 캐시 또는 PWA 캐시가 남아 있을 수 있으므로, 업로드 후 새로고침 또는 앱 업데이트 버튼을 눌러 확인하십시오.
-- 인트로 두 번째 화면에서 한국환경공단 심벌마크 하단 파란 원형 부분이 잘리지 않고 보이는지 확인하십시오.
-
-5. 미수정 항목
-- FAQ 데이터
-- 질문트리
-- 검색 로직
-- 관련법령 렌더링
-- 업무편람/e-book
-- 홈 화면 UI 구조
-
+주의
+- faq-data.json, 기존 ttumi-basic.png, 기존 keco-logo.png는 변경하지 않습니다.
+- 업데이트 상태 확인은 상단 '업데이트' 버튼을 눌렀을 때만 표시됩니다.

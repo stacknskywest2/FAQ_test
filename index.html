@@ -2033,6 +2033,9 @@ const APP_VERSION = "v16.0.0";
 const APP_RELEASE_DATE = "2026-06-08";
 const APP_BUILD_ID = "v16.0.0-20260618";
 const VERSION_INFO_URL = "./version.json";
+// 인트로 전용 패치에서는 자동 업데이트 팝업을 띄우지 않습니다.
+// 사용자가 상단 "업데이트" 버튼을 눌렀을 때만 버전 상태를 확인합니다.
+const UPDATE_AUTO_POPUP_ENABLED = false;
 
 const APP_ICON_DATA = "./icons/icon-192.png";
 let deferredInstallPrompt = null;
@@ -2138,7 +2141,7 @@ function checkLatestVersionInfo() {
     .then(info => {
       if (!info) return null;
       pendingLatestVersionInfo = info;
-      if (isLatestVersionNewer(info)) showUpdatePrompt(pendingServiceWorkerRegistration, info);
+      if (UPDATE_AUTO_POPUP_ENABLED && isLatestVersionNewer(info)) showUpdatePrompt(pendingServiceWorkerRegistration, info);
       return info;
     })
     .catch(() => null);
@@ -2177,7 +2180,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./service-worker.js", { scope: "./" }).then((registration) => {
       pendingServiceWorkerRegistration = registration;
       checkLatestVersionInfo().finally(() => {
-        if (registration.waiting && navigator.serviceWorker.controller) {
+        if (UPDATE_AUTO_POPUP_ENABLED && registration.waiting && navigator.serviceWorker.controller && isLatestVersionNewer(pendingLatestVersionInfo)) {
           showUpdatePrompt(registration, pendingLatestVersionInfo);
         }
       });
@@ -2185,7 +2188,7 @@ if ("serviceWorker" in navigator) {
         const newWorker = registration.installing;
         if (!newWorker) return;
         newWorker.addEventListener("statechange", () => {
-          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+          if (UPDATE_AUTO_POPUP_ENABLED && newWorker.state === "installed" && navigator.serviceWorker.controller && isLatestVersionNewer(pendingLatestVersionInfo)) {
             showUpdatePrompt(registration, pendingLatestVersionInfo);
           }
         });
