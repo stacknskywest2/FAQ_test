@@ -1,0 +1,32 @@
+v16.0.1 검증보고서
+
+1. 기준 및 범위
+- 기준 버전: v16.0.0 현행 사용본
+- 생성 버전: v16.0.1
+- 수정 대상: FAQ-D-010 1문항
+- 기능/UI 변경: 기존 로직 유지, 업무편람 표지 카드 호출부만 재확인
+
+2. FAQ-D-010 반영 확인
+- 공개 JSON 답변: 정도검사 이력은 “행정자료-운영현황-정도검사” 메뉴에서 등록합니다. 정도검사 신규등록을 선택한 뒤 검사일자, 검사기관, 측정항목, 차기검사일자, 결과여부를 입력하고 결과파일을 첨부합니다.
+- HTML 내장 JSON 답변: 정도검사 이력은 “행정자료-운영현황-정도검사” 메뉴에서 등록합니다. 정도검사 신규등록을 선택한 뒤 검사일자, 검사기관, 측정항목, 차기검사일자, 결과여부를 입력하고 결과파일을 첨부합니다.
+- JSON/HTML 답변 일치: True
+- 답변 이미지 경로: ./images/FAQ-D-010_accuracy_test_p293.jpg
+
+3. 이미지 확인
+- 업로드 이미지 SHA256: 75dd098ec25378982199ca85be22854d196cd9c9b1d746f3720cdbff60eec179
+- HTML_package/images 반영 SHA256: 75dd098ec25378982199ca85be22854d196cd9c9b1d746f3720cdbff60eec179
+- manuals/tms_ebook/page-293 반영 SHA256: 75dd098ec25378982199ca85be22854d196cd9c9b1d746f3720cdbff60eec179
+- 이미지 동기화 여부: True
+
+4. 공개 데이터 확인
+- 공개 답변 수: 199
+- display_yn=N 답변 공개 포함 수: 0
+- FAQ_DATA version: v16.0.1-public-data-20260623
+- index.html 내장 FAQ_DATA version: v16.0.1-public-data-20260623
+- 외부 JSON/내장 JSON FAQ-D-010 일치: True
+
+5. 홈 e-book UI 확인
+- renderManualCards 함수 존재: True
+- renderHomeActions에서 renderManualCards 호출: True
+
+최종 판정: v16.0.1 패키징 가능
