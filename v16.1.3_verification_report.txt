@@ -1,0 +1,29 @@
+v16.1.3 검증보고서
+
+1. 기준 버전
+- v16.1.2
+
+2. 작업 범위
+- 홈 화면 “업무편람 원본 e-book 열람” 영역 UI 보정
+- 사업장 대기오염물질 총량관리제도 업무편람 표지 이미지 표시용 보정
+- 굴뚝 원격감시체계 업무편람 카드와 사업장 대기오염물질 총량관리제도 업무편람 카드의 세로 높이 일치 보정
+
+3. 보존 사항
+- v16.1.2 인트로 수정사항 유지
+- v16.1.1 문구 정합성 보정사항 유지
+- 원본 PDF 및 e-book 본문 페이지 이미지는 임의 수정하지 않음
+
+4. 변경 파일
+- index.html
+- manuals/cover_total_management_manual_2026.jpg
+- version.json
+- manifest.webmanifest
+- service-worker.js
+- README.txt
+- faq-data.json(version 값만 갱신)
+
+5. 검증 결과
+- JSON 파싱 정상
+- JavaScript 구문 검사 정상
+- service-worker 캐시명 v16.1.3 갱신 확인
+- 압축파일 생성 및 무결성 검사 정상
