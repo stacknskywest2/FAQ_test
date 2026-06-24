@@ -1,8 +1,8 @@
-# v16.1.3_패키지
+# v16.1.4_패키지
 
 ## 작업 기준
 - 기준 버전: v16.1.2
-- 생성 버전: v16.1.3
+- 생성 버전: v16.1.4
 - 작업 성격: 홈 화면 업무편람 원본 e-book 열람 UI 보정
 
 ## 반영 사항
@@ -27,7 +27,7 @@
 - version.json
 - manifest.webmanifest
 - service-worker.js
-- manuals/cover_total_management_manual_2026.jpg
+- manuals/cover_total_management_manual_v16_1_4.jpg
 - manuals/
 - images/
 - laws/
@@ -36,4 +36,4 @@
 - ZIP 최상위 구조: HTML_package/
 - JSON 파싱: 정상
 - JavaScript 구문 검사: 정상
-- service-worker 캐시 버전: v16.1.3으로 갱신
+- service-worker 캐시 버전: v16.1.4으로 갱신

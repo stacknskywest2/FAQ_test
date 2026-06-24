@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gulttuk-helper-v16-1-3-20260624-manual-card-ui';
+const CACHE_NAME = 'gulttuk-helper-v16-1-4-20260624-manual-cover-cache-bust';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -35,7 +35,7 @@ const PRECACHE_URLS = [
   "./images/FAQ-D-014_period_emission_p296.jpg",
   "./images/FAQ-D-015_operation_status_p297.jpg",
   "./manuals/cover_tms_remote_monitoring_manual_2025.jpg",
-  "./manuals/cover_total_management_manual_2026.jpg",
+  "./manuals/cover_total_management_manual_v16_1_4.jpg",
   "./manuals/total_management_manual_2026.pdf",
   "./manuals/total_ebook/page-001.jpg",
   "./manuals/total_ebook/search_index.json",

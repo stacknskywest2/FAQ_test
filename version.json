@@ -1,19 +1,19 @@
 {
-  "version": "v16.1.3",
-  "version_tag": "v16.1.3-manual-card-ui-20260624",
+  "version": "v16.1.4",
+  "version_tag": "v16.1.4-manual-cover-cache-bust-20260624",
   "release_date": "2026-06-24",
-  "build_id": "v16.1.3-20260624-manual-card-ui",
+  "build_id": "v16.1.4-20260624-manual-cover-cache-bust",
   "app_name": "굴뚝도우미",
   "faq_name": "굴뚝 도우미 FAQ",
   "goal": "홈 화면 업무편람 원본 e-book 열람 UI의 표지 표시와 버튼 높이 정합성을 보정한다",
-  "message": "업무편람 e-book 카드 UI 보정",
+  "message": "업무편람 표지 캐시 보정",
   "changes": [
-    "사업장 대기오염물질 총량관리제도 업무편람의 홈 화면 표지 이미지를 표시용으로 보정",
-    "두 업무편람 e-book 카드 버튼의 세로 높이가 동일하게 보이도록 CSS 정합성 보정",
+    "사업장 대기오염물질 총량관리제도 업무편람의 홈 화면 표지 참조 파일명을 변경하여 이전 이미지 캐시 잔존 문제를 차단",
+    "두 업무편람 e-book 카드 버튼의 세로 높이가 동일하게 보이도록 CSS 정합성 보정 유지",
     "v16.1.2의 인트로 수정사항 및 v16.1.1 문구 정합성 보정사항 유지",
-    "service-worker 캐시 버전을 v16.1.3으로 갱신하여 이전 표지 이미지 캐시 잔존 가능성 제거"
+    "service-worker 캐시 버전을 v16.1.4로 갱신"
   ],
-  "build": "20260624-v1613-manual-card-ui",
-  "label": "v16.1.3 업무편람 e-book 카드 UI 보정본",
-  "description": "v16.1.2를 기준으로 홈 화면 업무편람 e-book 카드의 총량관리 편람 표지와 카드 높이를 보정한 패키지입니다."
+  "build": "20260624-v1614-manual-cover-cache-bust",
+  "label": "v16.1.4 업무편람 표지 캐시 보정본",
+  "description": "v16.1.3을 기준으로 홈 화면 총량관리 업무편람 표지의 동일 파일명 캐시 문제를 방지하기 위해 표지 파일명을 버전명 포함 경로로 변경한 패키지입니다."
 }
