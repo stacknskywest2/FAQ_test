@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gulttuk-helper-v16-0-1-20260623-redefined';
+const CACHE_NAME = 'gulttuk-helper-v16-1-2-20260624-intro-sync';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -14,8 +14,8 @@ const PRECACHE_URLS = [
   "./icons/ttumi-check.png",
   "./icons/ttumi-guide.png",
   "./icons/keco-logo.png",
-  "./icons/ttumi-intro.png",
   "./icons/keco-logo-intro.png",
+  "./icons/ttumi-basic-transparent.png",
   "./images/FAQ-D-001_system_overview_access_p280.jpg",
   "./images/FAQ-D-002_signup_login_flow_p281.jpg",
   "./images/FAQ-D-003_terms_business_lookup_p282.jpg",
@@ -36,6 +36,10 @@ const PRECACHE_URLS = [
   "./images/FAQ-D-015_operation_status_p297.jpg",
   "./manuals/cover_tms_remote_monitoring_manual_2025.jpg",
   "./manuals/cover_total_management_manual_2026.jpg",
+  "./manuals/total_management_manual_2026.pdf",
+  "./manuals/total_ebook/page-001.jpg",
+  "./manuals/total_ebook/search_index.json",
+  "./manuals/total_ebook/manifest.json",
   "./manuals/tms_ebook/page-001.jpg",
   "./manuals/tms_ebook/search_index.json",
   "./manuals/es019/es01901_1e/page-001.jpg",

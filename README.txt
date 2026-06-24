@@ -1,28 +1,29 @@
-GulttukHelper v16.0.1 - FAQ-D-010 정정 및 패키지 재정의본
+# v16.1.2_패키지
 
-기준:
-- 현행 사용본: v16.0.0 모바일 앱형 홈 UI 재개발본
-- 이번 변경: FAQ-D-010 한 문항의 답변문구와 이미지답변 수정
+## 작업 기준
+- 기준 버전: v16.1.1
+- 생성 버전: v16.1.2
+- 작업 성격: v16.0.1 인트로 수정사항 누락 보정 및 재패키징
 
-적용 내용:
-- FAQ-D-010 답변 문구: “행정자료-운영현황-정도검사” 메뉴 기준으로 정정
-- FAQ-D-010 답변이미지: 업로드된 FAQ-D-010_accuracy_test_p293.jpg 반영
-- manuals/tms_ebook/page-293.jpg도 동일 이미지로 동기화
-- 업무편람 e-book 책 표지 카드가 “처음 이용한다면” 영역 아래에 표시되도록 재확인
-- version.json, manifest.webmanifest, service-worker.js, index.html 버전값을 v16.0.1로 정렬
+## 반영 사항
+- v16.1.1의 문구 정합성 보정사항을 유지했습니다.
+- FAQ-A-042 고시번호·기관명 최신화, 환경부 표현 정비, 업무편람 목록보기 문구, 사용방법 안내 문구를 유지했습니다.
+- v16.0.1 인트로 수정사항을 반영했습니다.
+  - 뚜미 인트로 이미지를 투명 배경 파일로 교체하여 사각형 프레임이 함께 움직이지 않도록 했습니다.
+  - 한국환경공단 로고 인트로 이미지를 여백 포함 파일로 교체하여 심볼 하단이 잘리지 않도록 했습니다.
+  - 인트로 건너뛰기 버튼을 추가했습니다.
+  - 인트로는 같은 브라우저 세션에서 최초 1회만 표시되도록 수정했습니다.
+- 홈 화면에서 업무편람 표지 카드 영역이 “처음 이용한다면” 영역 바로 아래에 보이도록 복원했습니다.
+- 동일 버전 서비스워커 대기 상태에서 “업데이트가 배포되었습니다” 알림이 반복 노출되지 않도록 보정했습니다.
 
-GitHub Pages 업로드 대상:
-- 이 폴더(HTML_package) 안의 파일과 하위폴더 전체
-- /index.html
-- /faq-data.json
-- /version.json
-- /service-worker.js
-- /manifest.webmanifest
-- /icons/*
-- /images/*
-- /manuals/*
-- /laws/*
-
-주의:
-- DB_master와 JSON_archive 폴더는 관리·보관용이므로 GitHub Pages 공개 루트에 올리지 마세요.
-- 배포 전 service-worker 캐시 갱신 확인을 위해 브라우저 새로고침 또는 앱 업데이트 버튼 테스트를 권장합니다.
+## 주요 파일
+- index.html
+- faq-data.json
+- version.json
+- manifest.webmanifest
+- service-worker.js
+- icons/ttumi-basic-transparent.png
+- icons/keco-logo-intro.png
+- manuals/
+- images/
+- laws/
