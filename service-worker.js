@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gulttuk-helper-v16-1-5-20260624-intro-logo-fix';
+const CACHE_NAME = 'gulttuk-helper-v16-1-5-20260625-intro-single-stage';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -14,7 +14,7 @@ const PRECACHE_URLS = [
   "./icons/ttumi-check.png",
   "./icons/ttumi-guide.png",
   "./icons/keco-logo.png",
-  "./icons/keco-logo-intro-v16_1_5.png",
+  "./icons/keco-logo-intro-v16-1-5.png",
   "./icons/ttumi-basic-transparent.png",
   "./images/FAQ-D-001_system_overview_access_p280.jpg",
   "./images/FAQ-D-002_signup_login_flow_p281.jpg",

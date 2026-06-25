@@ -1,0 +1,34 @@
+# v16.1.5 검증보고서
+
+## 작업 목적
+홈 화면 "업무편람 원본 e-book 열람" 영역에서 사업장 대기오염물질 총량관리제도 업무편람 표지가 교체되었음에도, 동일 파일명으로 인해 브라우저 또는 service-worker 캐시에 남은 이전 표지가 계속 노출되는 문제를 보정한다.
+
+## 수정 내용
+- 총량관리 업무편람 홈 카드 표지 참조 파일명을 다음과 같이 변경
+  - 기존: manuals/cover_total_management_manual_2026.jpg
+  - 변경: manuals/cover_total_management_manual_v16_1_4.jpg
+- index.html의 MANUALS 설정에서 총량관리 표지 경로를 새 파일명으로 변경
+- service-worker.js의 PRECACHE_URLS에서 총량관리 표지 경로를 새 파일명으로 변경
+- service-worker 캐시명 v16.1.4로 갱신
+- version.json, manifest.webmanifest, README.txt 버전 v16.1.4로 갱신
+- 기존 cover_total_management_manual_2026.jpg 파일은 패키지에서 제거하여 동일 파일명 캐시 혼선을 방지
+
+## 검증 결과
+- ZIP 최상위 구조: HTML_package/
+- index.html 내 새 표지 파일명 참조 확인
+- service-worker.js 내 새 표지 파일명 참조 확인
+- 구 표지 파일명은 검증보고서의 설명을 제외하고 패키지·화면 렌더링·캐시 대상에서 제외
+- JSON 파싱 정상
+- 압축 무결성 검사 정상
+
+## 판정
+배포 가능. 동일 파일명 캐시 잔존으로 인한 이전 표지 노출 가능성을 파일명 변경 방식으로 차단함.
+
+
+[인트로 개편 검증]
+- 인트로 로고: icons/keco-logo-intro-v16-1-5.png 적용 확인
+- 인트로 구조: 단일 화면 구성 확인
+- 인트로 문구: "뚜미와 함께 찾는 굴뚝·총량 업무 FAQ" / "수도권관제센터 업무지원 서비스" 확인
+- 인트로 표시 시간: 2초 자동 종료 로직 반영 확인
+- 세션 최초 1회 표시: INTRO_SESSION_KEY = gulttuk_intro_seen_v16_1_5 적용 확인
+- service-worker 캐시명: gulttuk-helper-v16-1-5-20260625-intro-single-stage 적용 확인

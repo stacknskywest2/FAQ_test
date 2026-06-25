@@ -1,8 +1,8 @@
-# v16.1.4_패키지
+# v16.1.5_패키지
 
 ## 작업 기준
 - 기준 버전: v16.1.2
-- 생성 버전: v16.1.4
+- 생성 버전: v16.1.5
 - 작업 성격: 홈 화면 업무편람 원본 e-book 열람 UI 보정
 
 ## 반영 사항
@@ -28,6 +28,7 @@
 - manifest.webmanifest
 - service-worker.js
 - manuals/cover_total_management_manual_v16_1_4.jpg
+- icons/keco-logo-intro-v16-1-5.png
 - manuals/
 - images/
 - laws/
@@ -36,4 +37,10 @@
 - ZIP 최상위 구조: HTML_package/
 - JSON 파싱: 정상
 - JavaScript 구문 검사: 정상
-- service-worker 캐시 버전: v16.1.4으로 갱신
+- service-worker 캐시 버전: v16.1.5으로 갱신
+
+
+[추가 반영]
+- 인트로를 1화면 구조(상단 로고/중앙 뚜미/메인 문구/보조 문구/건너뛰기)로 개편
+- 인트로 표시 시간 2초, 세션 최초 1회만 표시
+- 제공된 한국환경공단 로고 파일을 인트로 전용 자산으로 교체
