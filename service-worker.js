@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gulttuk-helper-v16-1-5-20260625-intro-single-stage';
+const CACHE_NAME = 'gulttuk-helper-v16-1-6-20260629-ai-slop-cleanup';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
