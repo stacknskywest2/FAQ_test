@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gulttuk-helper-v16-2-0-20260702-home-compact-ui';
+const CACHE_NAME = 'gulttuk-helper-v16-2-1-20260702-helper-menu-dark-mode';
 const PRECACHE_URLS = [
   "./",
   "./index.html",

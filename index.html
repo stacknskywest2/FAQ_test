@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="굴뚝도우미" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<title>굴뚝도우미 v16.2.0</title>
+<meta name="color-scheme" content="light dark" />
+<title>굴뚝도우미 v16.2.1</title>
 <style>
 
 :root {
@@ -2020,6 +2021,274 @@ body {
   .panel.home-mode .category-gateway-label { font-size:12.2px; }
 }
 
+
+/* ===== v16.2.1 dark mode natural color override ===== */
+html { color-scheme: light dark; }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card:#152434;
+    --text:#eaf4fb;
+    --muted:rgba(234,244,251,.68);
+    --line:rgba(255,255,255,.13);
+    --soft:#0f1b27;
+    --disabled-bg:rgba(255,255,255,.08);
+    --disabled-text:rgba(234,244,251,.38);
+    --app-bg:#07131f;
+    --app-card:#132235;
+    --app-ink:#edf7ff;
+    --app-muted:rgba(237,247,255,.66);
+  }
+  body {
+    background:#06111d;
+    color:var(--text);
+  }
+  .app-shell {
+    background:#0b1724;
+    border-color:rgba(255,255,255,.10);
+    box-shadow:0 18px 46px rgba(0,0,0,.42);
+  }
+  .header,
+  .header.home-appbar {
+    background:#063f72;
+    color:#f8fcff;
+    border-bottom:1px solid rgba(255,255,255,.10);
+  }
+  .header-avatar,
+  .bot-avatar,
+  .usage-hero img {
+    background:#f7fbff;
+  }
+  .version-badge,
+  .install-btn,
+  .header.home-appbar .install-btn,
+  .header.home-appbar .version-badge {
+    background:#102236;
+    color:#dff5ff;
+    border-color:rgba(255,255,255,.20);
+  }
+  .install-btn.install-ready,
+  .header.home-appbar .install-btn.install-ready {
+    background:#143829;
+    color:#bfffe7;
+  }
+  .install-guide {
+    background:#1b2a1e;
+    border-color:#314d2e;
+    color:#e4f4d4;
+  }
+  .install-guide strong { color:#f4ffd9; }
+  .panel-head,
+  .panel.home-mode .panel-head {
+    background:rgba(11,23,36,.96);
+  }
+  .welcome-card,
+  .panel.home-mode .welcome-card,
+  .home-support-card.starter-section,
+  .panel.home-mode .home-support-card.starter-section,
+  .search-section,
+  .related-wrap {
+    background:rgba(18,33,50,.88);
+    border-color:rgba(255,255,255,.10);
+  }
+  .panel-head h2,
+  .home-search-title,
+  .section-title,
+  .home-support-title,
+  .manual-section-title,
+  .manual-view-title,
+  .usage-page-card h3,
+  .update-title,
+  .usage-hero-title,
+  .usage-step-title,
+  .manual-card-title,
+  .category-gateway-label,
+  .reachability-label,
+  .quick-card-title {
+    color:#edf7ff;
+  }
+  .panel-head p,
+  .home-search-sub,
+  .search-help,
+  .usage-hero-desc,
+  .usage-step-desc,
+  .usage-flow-desc,
+  .usage-app-sub,
+  .manual-section-desc,
+  .manual-view-desc,
+  .manual-card-sub,
+  .search-result .path,
+  .search-result .keywords,
+  .small,
+  .bubble-time,
+  .update-desc,
+  .collapse-content,
+  .reachability-btn .hint,
+  .quick-card-desc,
+  .category-gateway-hint {
+    color:rgba(237,247,255,.66);
+  }
+  .search-box,
+  .panel.home-mode .search-box,
+  .menu-btn,
+  .manual-card,
+  .usage-page-card,
+  .manual-view-card,
+  .usage-card,
+  .update-card,
+  .law-modal-card,
+  .usage-app-box {
+    background:#132235;
+    color:#edf7ff;
+    border-color:rgba(255,255,255,.12);
+  }
+  .search-box input {
+    color:#edf7ff;
+  }
+  .search-box input::placeholder {
+    color:rgba(237,247,255,.48);
+  }
+  .search-box button,
+  .bubble.user {
+    background:#f6d84f;
+    color:#281d00;
+  }
+  .home-hero-speech,
+  .panel.home-mode .home-hero-speech,
+  .search-suggest-chips-home .search-chip,
+  .panel.home-mode .search-suggest-chips-home .search-chip,
+  .popular-chip-grid .search-chip,
+  .home-quick-btn,
+  .manual-view-actions .secondary,
+  .usage-page-actions .secondary,
+  .search-collapse-btn {
+    background:#102236;
+    color:#cbefff;
+    border-color:rgba(255,255,255,.12);
+    box-shadow:none;
+  }
+  .home-quick-btn.secondary {
+    background:#102d28;
+    color:#bdfbe6;
+  }
+  .reachability-btn.quick-card,
+  .category-gateway-btn,
+  .panel.home-mode .reachability-btn.quick-card,
+  .panel.home-mode .category-gateway-btn,
+  .panel.home-mode .manual-card {
+    background:#132235;
+    color:#edf7ff;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 8px 18px rgba(0,0,0,.22);
+  }
+  .quick-card-icon {
+    background:rgba(51,165,212,.16);
+    color:#79d9ff;
+  }
+  .usage-hero {
+    background:linear-gradient(135deg, #102236 0%, #152b41 72%);
+    border-color:rgba(121,217,255,.16);
+    box-shadow:0 8px 22px rgba(0,0,0,.25);
+  }
+  .usage-hero-kicker,
+  .usage-app-os,
+  .usage-app-title,
+  .usage-flow-title,
+  .manual-view-actions .secondary,
+  .usage-page-actions .secondary,
+  .collapse-box summary {
+    color:#79d9ff;
+  }
+  .usage-flow-card,
+  .usage-step,
+  .usage-app-save,
+  .manual-card-cover,
+  .pdf-frame-wrap,
+  .search-empty {
+    background:#0f1b2a;
+    border-color:rgba(255,255,255,.11);
+    color:#d8eaf5;
+  }
+  .usage-step-num,
+  .usage-flow-num,
+  .usage-page-actions .primary,
+  .manual-view-actions .primary,
+  .manual-download-btn,
+  .law-modal-head,
+  .update-apply {
+    background:#0968a8;
+    color:#fff;
+  }
+  .usage-app-badge,
+  .usage-mini-step b,
+  .mini-tag {
+    background:#11304b;
+    color:#91ddff;
+  }
+  .usage-mini-step {
+    color:rgba(237,247,255,.76);
+  }
+  .usage-tip,
+  .usage-notice,
+  .notice {
+    background:#2a2411;
+    border-color:#57491b;
+    color:#f4e0a2;
+  }
+  .bubble.bot {
+    background:#152434;
+    color:#edf7ff;
+  }
+  .answer-summary { color:#edf7ff; }
+  .collapse-box {
+    border-top-color:rgba(255,255,255,.14);
+  }
+  .bottom-nav {
+    background:#0e1a27;
+    border-top-color:rgba(255,255,255,.10);
+  }
+  .bottom-nav button.secondary,
+  .update-later {
+    background:#243447;
+    color:#edf7ff;
+  }
+  .law-modal {
+    background:rgba(0,0,0,.58);
+  }
+  .law-modal-body {
+    background:#0f1b2a;
+    color:#e8f3fb;
+    border-color:rgba(255,255,255,.10);
+  }
+  .law-modal-close,
+  .law-modal-foot button,
+  .law-modal-pager button {
+    background:#102236;
+    color:#dff5ff;
+  }
+  .law-modal-pager button:disabled,
+  .manual-download-btn.disabled,
+  .manual-download-btn:disabled,
+  .menu-btn.disabled,
+  .menu-btn:disabled {
+    background:rgba(255,255,255,.07);
+    color:rgba(237,247,255,.38);
+  }
+  .intro-layer,
+  .usage-layer {
+    background:#07131f;
+  }
+  .splash-logo-card {
+    background:linear-gradient(180deg, rgba(19,34,53,.94) 0%, rgba(11,23,36,.96) 100%);
+    border-color:rgba(255,255,255,.12);
+    box-shadow:0 18px 48px rgba(0,0,0,.35);
+  }
+  .splash-title,
+  .splash-title strong,
+  .splash-subtitle {
+    color:#edf7ff;
+  }
+}
+
 </style>
 
 <link rel="manifest" href="./manifest.webmanifest">
@@ -2127,10 +2396,18 @@ body {
 
 <script>
 
-const APP_VERSION = "v16.2.0";
-const APP_RELEASE_DATE = "2026-06-24";
-const APP_BUILD_ID = "v16.2.0-20260702-home-compact-ui";
+const APP_VERSION = "v16.2.1";
+const APP_RELEASE_DATE = "2026-07-02";
+const APP_BUILD_ID = "v16.2.1-20260702-helper-menu-dark-mode";
 const VERSION_INFO_URL = "./version.json";
+function syncThemeColorToScheme(){
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(!meta) return;
+  const isDark=window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  meta.setAttribute("content", isDark ? "#07131f" : "#055F9B");
+}
+syncThemeColorToScheme();
+if(window.matchMedia){try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncThemeColorToScheme);}catch(e){}}
 
 const APP_ICON_DATA = "./icons/icon-192.png";
 let deferredInstallPrompt = null;
@@ -2329,6 +2606,7 @@ let lastSearchQuery = "";
 let searchCollapsed = false;
 
 const SPECIAL_USAGE_ID = "__USAGE__";
+const SPECIAL_APP_SAVE_ID = "__APP_SAVE__";
 const SPECIAL_MANUAL_PREFIX = "__MANUAL__:";
 
 const MANUAL_DOCS = [
@@ -2586,10 +2864,11 @@ const MANUAL_DOCS = [
   }
 ];
 function isSpecialPage(id) {
-  return id === SPECIAL_USAGE_ID || String(id || "").startsWith(SPECIAL_MANUAL_PREFIX);
+  return id === SPECIAL_USAGE_ID || id === SPECIAL_APP_SAVE_ID || String(id || "").startsWith(SPECIAL_MANUAL_PREFIX);
 }
 function specialPageLabel(id) {
-  if (id === SPECIAL_USAGE_ID) return "사용방법 안내";
+  if (id === SPECIAL_USAGE_ID) return "챗봇 사용방법";
+  if (id === SPECIAL_APP_SAVE_ID) return "앱으로 저장하기";
   if (String(id || "").startsWith(SPECIAL_MANUAL_PREFIX)) {
     const docId = String(id).slice(SPECIAL_MANUAL_PREFIX.length);
     const doc = manualDocById(docId);
@@ -3078,7 +3357,7 @@ function renderAnswer(item) {
 function renderHomeActions() {
   return '<section class="home-support-card starter-section" aria-label="처음 이용한다면">' +
     '<div class="home-support-title">처음 이용한다면</div>' +
-    '<div class="home-quick-actions"><button type="button" class="home-quick-btn helper-action" onclick="openUsagePage()">사용방법 보기</button><button type="button" class="home-quick-btn secondary helper-action" onclick="scrollToManualSection()">업무편람 목록보기</button></div>' +
+    '<div class="home-quick-actions"><button type="button" class="home-quick-btn helper-action" onclick="openUsagePage()">챗봇 사용방법</button><button type="button" class="home-quick-btn secondary helper-action" onclick="openAppSavePage()">앱으로 저장하기</button></div>' +
   '</section>';
 }
 function renderUsagePage() {
@@ -3093,19 +3372,25 @@ function renderUsagePage() {
       '<div class="usage-step"><div class="usage-step-num">1</div><div><div class="usage-step-title">첫 화면에서 바로 찾기</div><div class="usage-step-desc">검색창에 개선계획서, 행정자료, 부착대상처럼 입력하거나 추천 검색어를 누릅니다.</div></div></div>' +
       '<div class="usage-step"><div class="usage-step-num">2</div><div><div class="usage-step-title">업무명을 모르면 상황으로 찾기</div><div class="usage-step-desc">서류 제출, 대상 확인, 측정자료 이상 같은 빠른 해결 카드를 선택합니다.</div></div></div>' +
       '<div class="usage-step"><div class="usage-step-num">3</div><div><div class="usage-step-title">업무분야를 알면 카테고리로 이동</div><div class="usage-step-desc">대기오염물질 총량관리, 굴뚝 원격감시체계, 대기오염공정시험기준, 사업장대기오염물질관리시스템 중 해당 분야를 선택합니다.</div></div></div>' +
-      '<div class="usage-step"><div class="usage-step-num">4</div><div><div class="usage-step-title">업무편람은 앱 안에서 열람</div><div class="usage-step-desc">처음 이용한다면 아래의 업무편람 원본 e-book 열람 영역에서 책 표지를 누르면 PDF를 내려받지 않고 앱 안에서 페이지를 넘겨 볼 수 있습니다.</div></div></div>' +
+      '<div class="usage-step"><div class="usage-step-num">4</div><div><div class="usage-step-title">업무편람은 e-book에서 열람</div><div class="usage-step-desc">홈 화면의 업무편람 e-book 영역에서 원하는 편람 버튼을 누르면 앱 안에서 페이지를 넘겨 볼 수 있습니다.</div></div></div>' +
       '<div class="usage-step"><div class="usage-step-num">5</div><div><div class="usage-step-title">새 안내가 뜨면 업데이트</div><div class="usage-step-desc">업데이트 안내가 보이면 버튼을 눌러 최신 화면으로 새로고침합니다.</div></div></div>' +
     '</div>' +
+    '<div class="usage-page-actions"><button type="button" class="primary" onclick="goHome()">홈으로 돌아가기</button><button type="button" class="secondary" onclick="openAppSavePage()">앱으로 저장하기</button></div>' +
+  '</div>';
+}
+function renderAppSavePage() {
+  return '<div class="usage-page-card app-save-page-card">' +
+    '<div class="usage-hero"><img src="./icons/icon-192.png" alt="굴뚝도우미 아이콘"><div><div class="usage-hero-kicker">모바일 바로가기 설정</div><div class="usage-hero-title">홈 화면에 앱처럼 저장하기</div><div class="usage-hero-desc">한 번 저장해 두면 다음부터는 브라우저를 열지 않고 홈 화면의 굴뚝도우미 아이콘으로 바로 실행할 수 있습니다.</div></div></div>' +
     '<div class="usage-app-save">' +
-      '<div class="usage-app-title">휴대폰 홈 화면에 앱처럼 저장하기</div>' +
-      '<div class="usage-app-sub">한 번 저장해 두면 다음부터는 홈 화면의 <strong>굴뚝도우미</strong> 아이콘으로 바로 열 수 있습니다.</div>' +
+      '<div class="usage-app-title">휴대폰 홈 화면에 저장하는 방법</div>' +
+      '<div class="usage-app-sub">사용 중인 기기와 브라우저에 맞는 순서만 확인하면 됩니다.</div>' +
       '<div class="usage-app-grid">' +
         '<div class="usage-app-box"><div class="usage-app-os">Android <span class="usage-app-badge">Chrome·Edge</span></div><div class="usage-mini-steps"><div class="usage-mini-step"><b>1</b><span>브라우저에서 FAQ 페이지를 엽니다.</span></div><div class="usage-mini-step"><b>2</b><span>우측 상단 <strong>⋮</strong> 메뉴를 누릅니다.</span></div><div class="usage-mini-step"><b>3</b><span><strong>앱 설치</strong> 또는 <strong>홈 화면에 추가</strong>를 선택합니다.</span></div><div class="usage-mini-step"><b>4</b><span>이름이 <strong>굴뚝도우미</strong>인지 확인하고 추가합니다.</span></div></div></div>' +
         '<div class="usage-app-box"><div class="usage-app-os">iPhone <span class="usage-app-badge">Safari</span></div><div class="usage-mini-steps"><div class="usage-mini-step"><b>1</b><span>Safari에서 FAQ 페이지를 엽니다.</span></div><div class="usage-mini-step"><b>2</b><span>하단의 <strong>공유</strong> 버튼을 누릅니다.</span></div><div class="usage-mini-step"><b>3</b><span><strong>홈 화면에 추가</strong>를 선택합니다.</span></div><div class="usage-mini-step"><b>4</b><span>이름이 <strong>굴뚝도우미</strong>인지 확인하고 추가합니다.</span></div></div></div>' +
       '</div>' +
-      '<div class="usage-tip">설치 버튼이 바로 보이지 않으면 페이지를 새로고침한 뒤 다시 시도해 주세요.</div>' +
+      '<div class="usage-tip">앱 설치 버튼이 바로 보이지 않으면 페이지를 새로고침하거나, HTTPS 주소에서 접속했는지 확인해 주세요.</div>' +
     '</div>' +
-    '<div class="usage-page-actions"><button type="button" onclick="goHome()">홈으로 돌아가기</button></div>' +
+    '<div class="usage-page-actions"><button type="button" class="primary" onclick="goHome()">홈으로 돌아가기</button><button type="button" class="secondary" onclick="openUsagePage()">챗봇 사용방법</button></div>' +
   '</div>';
 }
 function manualDocById(id) {
@@ -3148,6 +3433,11 @@ function scrollToManualSection() {
 function openUsagePage() {
   if (currentId) historyStack.push(currentId);
   currentId = SPECIAL_USAGE_ID;
+  render();
+}
+function openAppSavePage() {
+  if (currentId) historyStack.push(currentId);
+  currentId = SPECIAL_APP_SAVE_ID;
   render();
 }
 function openManualViewer(id) {
@@ -3325,10 +3615,17 @@ function render() {
   if (desc) desc.style.display = "";
   renderRouteNav(currentId);
   if (currentId === SPECIAL_USAGE_ID) {
-    title.textContent = "사용방법 안내";
-    desc.textContent = "FAQ 이용 방법과 앱처럼 저장하는 방법을 안내합니다.";
+    title.textContent = "챗봇 사용방법";
+    desc.textContent = "검색, 빠른 해결, 업무분야 버튼으로 FAQ를 찾는 방법을 안내합니다.";
     searchWrap.style.display = "none";
     body.innerHTML = renderUsagePage();
+    return;
+  }
+  if (currentId === SPECIAL_APP_SAVE_ID) {
+    title.textContent = "앱으로 저장하기";
+    desc.textContent = "모바일 홈 화면에 굴뚝도우미를 앱처럼 저장하는 방법을 안내합니다.";
+    searchWrap.style.display = "none";
+    body.innerHTML = renderAppSavePage();
     return;
   }
   if (String(currentId || "").startsWith(SPECIAL_MANUAL_PREFIX)) {
@@ -3450,6 +3747,7 @@ function initFromQuery() {
   const view = url.searchParams.get("view");
   if (q) lastSearchQuery = q.trim().slice(0, 80);
   if (view === "usage") currentId = SPECIAL_USAGE_ID;
+  if (view === "app-save") currentId = SPECIAL_APP_SAVE_ID;
   if (view && view.startsWith("manual:")) currentId = SPECIAL_MANUAL_PREFIX + view.slice(7);
   render();
 }
