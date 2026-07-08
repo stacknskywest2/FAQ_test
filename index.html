@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="굴뚝도우미" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="color-scheme" content="light dark" />
-<title>굴뚝도우미 v16.3.1</title>
+<title>굴뚝도우미 v16.3.2</title>
 <style>
 
 :root {
@@ -2340,7 +2340,7 @@ html { color-scheme: light dark; }
 }
 
 
-/* ===== v16.3.1 UX feedback, usage metrics and report receiver connected ===== */
+/* ===== v16.3.2 account-change resilient feedback and usage receiver ===== */
 .feedback-action { border-color:rgba(5,95,155,.18) !important; }
 .feedback-action::before { content:"💬"; margin-right:4px; }
 .search-feedback-actions { margin-top:12px; display:flex; flex-direction:column; gap:6px; }
@@ -2514,15 +2514,33 @@ html { color-scheme: light dark; }
 
 <script>
 
-const APP_VERSION = "v16.3.1";
+const APP_VERSION = "v16.3.2";
 const APP_RELEASE_DATE = "2026-07-08";
-const APP_BUILD_ID = "v16.3.1-20260708-usage-report-connected";
+const APP_BUILD_ID = "v16.3.2-20260708-account-flexible-receiver";
 const VERSION_INFO_URL = "./version.json";
 
-const FEEDBACK_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyrPSIecpUrYCHBnz_ZTPI01ENoqBFqH4q8Z4s-t0nf9jCysiHnxAR-yLZ9Gf6YzaHRBg/exec"; // Apps Script 웹앱 배포 URL: 자동 사용량·피드백 수신 활성화
+const FEEDBACK_CONFIG_URL = "./feedback-config.json";
+let FEEDBACK_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyrPSIecpUrYCHBnz_ZTPI01ENoqBFqH4q8Z4s-t0nf9jCysiHnxAR-yLZ9Gf6YzaHRBg/exec"; // fallback: config 파일 로드 실패 시 사용
+let FEEDBACK_ENDPOINT_ACTIVE = true;
+let FEEDBACK_ENDPOINT_READY = false;
 const FEEDBACK_FALLBACK_FORM_URL = "https://forms.gle/HVRscayxikxSePBr8";
 function isFeedbackReceiverConfigured(){
-  return /^https:\/\/script\.google\.com\/macros\/s\//.test(String(FEEDBACK_WEBAPP_URL || ""));
+  return FEEDBACK_ENDPOINT_ACTIVE && /^https:\/\/script\.google\.com\/macros\/s\//.test(String(FEEDBACK_WEBAPP_URL || ""));
+}
+function applyFeedbackConfig(config){
+  if (!config || typeof config !== "object") return;
+  FEEDBACK_ENDPOINT_ACTIVE = config.active !== false;
+  const endpoint = config.primary_endpoint || config.endpoint || config.webapp_url || "";
+  if (/^https:\/\/script\.google\.com\/macros\/s\//.test(String(endpoint))) {
+    FEEDBACK_WEBAPP_URL = endpoint;
+  }
+}
+function initFeedbackConfig(){
+  const url = FEEDBACK_CONFIG_URL + "?t=" + encodeURIComponent(APP_VERSION + "-" + Date.now());
+  return fetch(url, {cache:"no-store"})
+    .then(function(res){ if (!res.ok) throw new Error("config load failed"); return res.json(); })
+    .then(function(config){ applyFeedbackConfig(config); FEEDBACK_ENDPOINT_READY = true; return config; })
+    .catch(function(){ FEEDBACK_ENDPOINT_READY = true; return null; });
 }
 
 const USAGE_METRICS_ENABLED = true;
@@ -4122,7 +4140,9 @@ window.addEventListener("DOMContentLoaded", function() {
 });
 
 bindSearch();
-initFromQuery();
+initFeedbackConfig().finally(function(){
+  initFromQuery();
+});
 
 </script>
 </body>

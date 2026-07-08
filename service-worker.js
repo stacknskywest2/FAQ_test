@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gulttuk-helper-v16-3-1-20260708-usage-report-connected';
+const CACHE_NAME = 'gulttuk-helper-v16-3-2-20260708-account-flexible-receiver';
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -146,6 +146,10 @@ self.addEventListener("fetch", (event) => {
   }
   if (url.pathname.endsWith("/version.json") || url.pathname.endsWith("version.json")) {
     event.respondWith(networkFirst(event, "./version.json"));
+    return;
+  }
+  if (url.pathname.endsWith("/feedback-config.json") || url.pathname.endsWith("feedback-config.json")) {
+    event.respondWith(networkFirst(event, "./feedback-config.json"));
     return;
   }
   if (url.pathname.endsWith("search_index.json")) {

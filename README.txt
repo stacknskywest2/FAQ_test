@@ -1,74 +1,51 @@
-# v16.3.1_패키지
+# v16.3.2_패키지
 
 ## 1. 기준 및 목적
 
-- 기준 버전: v16.3.0
-- 생성 버전: v16.3.1
-- 목적: Google Apps Script Web App URL을 반영하여 UX 피드백과 사용량·실적관리 자동 수집을 실제 활성화
+- 기준 버전: v16.3.1
+- 생성 버전: v16.3.2
+- 목적: Google Apps Script 및 Google Sheets 운영계정이 변경되어도 서비스가 유연하게 대응할 수 있도록 endpoint 설정을 분리
 
 ## 2. 주요 변경사항
 
-1. Apps Script Web App URL 연결
-   - index.html의 `FEEDBACK_WEBAPP_URL`에 배포 URL 반영
-   - URL: `https://script.google.com/macros/s/AKfycbyrPSIecpUrYCHBnz_ZTPI01ENoqBFqH4q8Z4s-t0nf9jCysiHnxAR-yLZ9Gf6YzaHRBg/exec`
+1. `feedback-config.json` 신규 추가
+   - Apps Script Web App URL을 `index.html`에서 분리했습니다.
+   - 담당자 또는 운영계정 변경 시 새 Web App URL을 `feedback-config.json`의 `primary_endpoint`에만 반영하면 됩니다.
 
-2. 자동 사용량 이벤트 수집 활성화
-   - PAGE_VIEW: 서비스 접속
-   - HOME_OPEN: 홈 이동
-   - MENU_OPEN: 메뉴/질문트리 이동
-   - FAQ_OPEN: FAQ 답변 열람
-   - SEARCH_SUCCESS: 검색 결과 있음
-   - SEARCH_FAIL: 검색 결과 없음
-   - EBOOK_OPEN: 업무편람 e-book 열람
-   - EBOOK_SEARCH_SUCCESS: e-book 검색 성공
-   - EBOOK_SEARCH_FAIL: e-book 검색 실패
-   - FEEDBACK_CLICK: 의견 보내기 클릭
+2. `index.html` 보정
+   - 서비스 시작 시 `feedback-config.json`을 먼저 읽고 수신창구 URL을 적용합니다.
+   - config 로드 실패 시 v16.3.1에서 사용한 기존 Apps Script URL을 fallback으로 사용합니다.
 
-3. 의견 보내기 기능 유지
-   - 의견 보내기는 자동 로그 저장 조건이 아니라, 사용자가 자발적으로 개선 의견을 남기는 기능입니다.
-   - 기본 사용량 이벤트는 의견 보내기를 누르지 않아도 자동 전송됩니다.
+3. `service-worker.js` 보정
+   - `feedback-config.json`은 network-first로 조회합니다.
+   - URL 변경 시 캐시에 갇히지 않도록 `index.html`에서 cache-busting query를 붙여 읽습니다.
 
-4. 주간·월간 보고서 기반 유지
-   - Google Apps Script의 `installTriggersNow` 실행으로 설치한 트리거가 주간·월간 보고서를 발송합니다.
-   - 수신 메일: `stacknsky_west2@keco.or.kr`
+4. 운영문서 추가
+   - `docs/계정변경_대응_운영절차_v16.3.2.md`
+   - `docs/장기기억_운영기준_v16.3.2.md`
 
-## 3. 수집하지 않는 항목
+## 3. 계정 변경 시 최소 작업
 
-다음 항목은 수집하지 않습니다.
+1. 새 운영계정으로 Apps Script 접속
+2. 기존 Code.gs 및 Run.gs를 복사 또는 프로젝트 권한 확보
+3. 새 운영계정으로 `setupNow`, `testMailNow`, `installTriggersNow` 실행
+4. 새 운영계정으로 웹 앱 재배포
+5. 새 Web App URL을 `feedback-config.json`의 `primary_endpoint`에 반영
+6. GitHub Pages에 `feedback-config.json`만 업로드
+7. FAQ 접속, 검색, FAQ 열람 후 `사용량원본` 기록 확인
 
-- 이름
-- 연락처
-- 사번
-- IP
-- 위치정보
-- 기기 고유정보
-- Google 계정 정보
-- 브라우저 fingerprint
+## 4. 수집 원칙
 
-브라우저 세션 단위 임시 session_id만 사용하며, 장기 사용자 추적용으로 사용하지 않습니다.
+수집하는 항목:
+- 서비스 접속, 검색 성공/실패, FAQ 열람, e-book 열람, 피드백 클릭 등 비식별 이벤트
+- FAQ ID, FAQ 제목, 업무분야, 검색어, 버전, 화면 위치
 
-## 4. 배포 후 확인
+수집하지 않는 항목:
+- 이름, 연락처, 사번, IP, 위치정보, 기기 고유정보, Google 계정 정보, 브라우저 fingerprint
 
-GitHub Pages에 업로드한 뒤 아래 순서로 확인합니다.
+## 5. 배포 후 확인
 
-1. 서비스 접속
-2. 검색 1회 실행
-3. 검색 결과 없는 검색어 1회 실행
-4. FAQ 답변 1개 열람
-5. e-book 버튼 1회 열람
-6. 의견 보내기 버튼 1회 클릭
-
-Google Sheets 확인 위치:
-
-- 사용량원본: PAGE_VIEW, SEARCH_SUCCESS, SEARCH_FAIL, FAQ_OPEN, EBOOK_OPEN 등 자동 기록 확인
-- 응답원본: 의견 보내기에서 작성한 개선 의견 확인
-- 메일발송이력: 테스트 메일 및 트리거 설치 이력 확인
-
-## 5. 검증 항목
-
-- JavaScript 구문 검사
-- JSON 파싱
-- manifest 파싱
-- service-worker 캐시명 갱신
-- Apps Script URL 반영 확인
-- ZIP 무결성 검사
+- `feedback-config.json`이 GitHub Pages 배포 경로에 포함되어 있는지 확인
+- 서비스 접속 후 Google Sheets `사용량원본`에 `PAGE_VIEW` 또는 사용 이벤트가 쌓이는지 확인
+- 검색 실패 1회, FAQ 열람 1회, e-book 열람 1회 테스트
+- `메일발송이력` 시트의 트리거 설치 및 테스트 메일 기록 확인

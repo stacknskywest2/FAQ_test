@@ -1,0 +1,9 @@
+{
+  "active": true,
+  "primary_endpoint": "https://script.google.com/macros/s/AKfycbyrPSIecpUrYCHBnz_ZTPI01ENoqBFqH4q8Z4s-t0nf9jCysiHnxAR-yLZ9Gf6YzaHRBg/exec",
+  "secondary_endpoint": "",
+  "fallback_form_url": "https://forms.gle/HVRscayxikxSePBr8",
+  "service_version": "v16.3.2",
+  "updated_at": "2026-07-08",
+  "memo": "COP_FAQ UX 피드백 및 사용량 실적관리 수신창구. 담당자/운영계정 변경 시 Apps Script를 새 계정으로 재배포한 뒤 primary_endpoint만 교체한다."
+}
