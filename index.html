@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="굴뚝도우미" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="color-scheme" content="light dark" />
-<title>굴뚝도우미 v16.2.2</title>
+<title>굴뚝도우미 v16.3.1</title>
 <style>
 
 :root {
@@ -2339,6 +2339,72 @@ html { color-scheme: light dark; }
   }
 }
 
+
+/* ===== v16.3.1 UX feedback, usage metrics and report receiver connected ===== */
+.feedback-action { border-color:rgba(5,95,155,.18) !important; }
+.feedback-action::before { content:"💬"; margin-right:4px; }
+.search-feedback-actions { margin-top:12px; display:flex; flex-direction:column; gap:6px; }
+.feedback-open-btn {
+  width:100%;
+  border:1px solid rgba(5,95,155,.18);
+  border-radius:14px;
+  padding:10px 12px;
+  background:linear-gradient(135deg,#f1fbff,#eef8f3);
+  color:#064b7a;
+  font-weight:800;
+  letter-spacing:-.03em;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(5,95,155,.08);
+}
+.feedback-open-btn:active { transform:translateY(1px); }
+.feedback-help-text { font-size:11px; color:var(--muted); line-height:1.45; letter-spacing:-.03em; }
+.answer-feedback-card {
+  margin-top:12px;
+  border:1px solid rgba(5,95,155,.14);
+  border-radius:18px;
+  padding:12px;
+  background:linear-gradient(135deg, rgba(241,251,255,.98), rgba(242,255,248,.98));
+  box-shadow:0 10px 24px rgba(5,95,155,.08);
+}
+.answer-feedback-title { font-size:13px; font-weight:900; color:#064b7a; letter-spacing:-.04em; }
+.answer-feedback-desc { margin-top:4px; font-size:11.5px; color:var(--muted); line-height:1.45; letter-spacing:-.03em; }
+.answer-feedback-actions { margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; }
+.answer-feedback-actions .feedback-open-btn { width:auto; flex:1 1 180px; min-height:40px; }
+.feedback-toast {
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%) translateY(12px);
+  z-index:9999;
+  max-width:min(88vw, 420px);
+  padding:10px 12px;
+  border-radius:999px;
+  background:rgba(10,26,42,.94);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:-.03em;
+  box-shadow:0 14px 34px rgba(0,0,0,.24);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease, transform .18s ease;
+  text-align:center;
+}
+.feedback-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+@media (max-width:520px) {
+  .answer-feedback-actions { flex-direction:column; }
+  .answer-feedback-actions .feedback-open-btn { width:100%; flex:auto; }
+}
+@media (prefers-color-scheme: dark) {
+  .feedback-open-btn,
+  .answer-feedback-card {
+    background:linear-gradient(135deg, rgba(13,31,48,.98), rgba(10,38,31,.98));
+    border-color:rgba(151,210,255,.16);
+    color:#dff4ff;
+  }
+  .answer-feedback-title { color:#dff4ff; }
+}
+
 </style>
 
 <link rel="manifest" href="./manifest.webmanifest">
@@ -2444,12 +2510,193 @@ html { color-scheme: light dark; }
   </div>
 </div>
 
+<div id="feedbackToast" class="feedback-toast" role="status" aria-live="polite"></div>
+
 <script>
 
-const APP_VERSION = "v16.2.2";
-const APP_RELEASE_DATE = "2026-07-02";
-const APP_BUILD_ID = "v16.2.2-20260702-manual-cover-ui";
+const APP_VERSION = "v16.3.1";
+const APP_RELEASE_DATE = "2026-07-08";
+const APP_BUILD_ID = "v16.3.1-20260708-usage-report-connected";
 const VERSION_INFO_URL = "./version.json";
+
+const FEEDBACK_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyrPSIecpUrYCHBnz_ZTPI01ENoqBFqH4q8Z4s-t0nf9jCysiHnxAR-yLZ9Gf6YzaHRBg/exec"; // Apps Script 웹앱 배포 URL: 자동 사용량·피드백 수신 활성화
+const FEEDBACK_FALLBACK_FORM_URL = "https://forms.gle/HVRscayxikxSePBr8";
+function isFeedbackReceiverConfigured(){
+  return /^https:\/\/script\.google\.com\/macros\/s\//.test(String(FEEDBACK_WEBAPP_URL || ""));
+}
+
+const USAGE_METRICS_ENABLED = true;
+function getCopFaqSessionId(){
+  try {
+    const key = "COP_FAQ_SESSION_ID";
+    let id = sessionStorage.getItem(key);
+    if (!id) {
+      const seed = (Date.now().toString(36) + Math.random().toString(36).slice(2, 10)).replace(/[^a-z0-9]/gi, "");
+      id = "S-" + seed.slice(0, 18);
+      sessionStorage.setItem(key, id);
+    }
+    return id;
+  } catch(e) {
+    return "S-NOSESSION";
+  }
+}
+function currentScreenCode(){
+  if (currentId === "ROOT") return "HOME";
+  if (currentId === SPECIAL_USAGE_ID) return "USAGE_GUIDE";
+  if (currentId === SPECIAL_APP_SAVE_ID) return "APP_SAVE";
+  if (String(currentId || "").startsWith(SPECIAL_MANUAL_PREFIX)) return "EBOOK";
+  const node = nodeMap[currentId];
+  if (node && node.type === "answer") return "ANSWER";
+  return "MENU";
+}
+function usagePayload(eventType, extra){
+  const x = extra || {};
+  const node = x.node || (x.nodeId && nodeMap[x.nodeId]) || (currentId && nodeMap[currentId]) || null;
+  const question = node && node.ui && (node.ui.question || node.ui.label) || "";
+  return {
+    log_type: "USAGE",
+    event_type: cleanFeedbackValue(eventType || "EVENT", 60),
+    screen: cleanFeedbackValue(x.screen || currentScreenCode(), 40),
+    search_keyword: cleanFeedbackValue(x.search_keyword != null ? x.search_keyword : lastSearchQuery || "", 80),
+    faq_id: cleanFeedbackValue(x.faq_id != null ? x.faq_id : node && node.id || "", 40),
+    faq_title: cleanFeedbackValue(x.faq_title != null ? x.faq_title : question, 180),
+    category: cleanFeedbackValue(x.category != null ? x.category : node && node.category && node.category.name || "", 80),
+    detail: cleanFeedbackValue(x.detail || "", 300),
+    result_count: Number.isFinite(x.result_count) ? x.result_count : "",
+    ebook_id: cleanFeedbackValue(x.ebook_id || "", 80),
+    ebook_title: cleanFeedbackValue(x.ebook_title || "", 180),
+    version: APP_VERSION,
+    build_id: APP_BUILD_ID,
+    session_id: cleanFeedbackValue(getCopFaqSessionId(), 40),
+    page_url: location.href.split("#")[0],
+    client_time: new Date().toISOString()
+  };
+}
+function sendUsagePayload(payload){
+  if (!USAGE_METRICS_ENABLED || !isFeedbackReceiverConfigured()) return Promise.resolve({sent:false, reason:"receiver not configured"});
+  const body = JSON.stringify(payload);
+  if (navigator.sendBeacon) {
+    try {
+      const blob = new Blob([body], {type:"text/plain;charset=utf-8"});
+      if (navigator.sendBeacon(FEEDBACK_WEBAPP_URL, blob)) return Promise.resolve({sent:true, via:"sendBeacon"});
+    } catch(e) {}
+  }
+  return fetch(FEEDBACK_WEBAPP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {"Content-Type":"text/plain;charset=utf-8"},
+    body: body,
+    keepalive: true
+  }).then(function(){ return {sent:true, via:"fetch"}; }).catch(function(){ return {sent:false}; });
+}
+const usageDedupState = Object.create(null);
+function trackUsage(eventType, extra){
+  try {
+    const key = [eventType, extra && (extra.faq_id || extra.nodeId || extra.search_keyword || extra.ebook_id || extra.screen || "")].join("|");
+    const now = Date.now();
+    if (usageDedupState[key] && now - usageDedupState[key] < 1200) return;
+    usageDedupState[key] = now;
+    sendUsagePayload(usagePayload(eventType, extra));
+  } catch(e) {}
+}
+function cleanFeedbackValue(value, maxLen){
+  return String(value == null ? "" : value).replace(/[<>]/g, "").replace(/[\r\n\t]+/g, " ").trim().slice(0, maxLen || 300);
+}
+function getFeedbackNode(screen, nodeId){
+  if (nodeId && nodeMap[nodeId]) return nodeMap[nodeId];
+  if (screen === "ANSWER" && currentId && nodeMap[currentId]) return nodeMap[currentId];
+  return null;
+}
+function buildFeedbackContext(type, screen, nodeId){
+  const node = getFeedbackNode(screen, nodeId);
+  const question = node && node.ui && (node.ui.question || node.ui.label) || "";
+  return {
+    type: cleanFeedbackValue(type || "서비스 개선 의견", 60),
+    screen: cleanFeedbackValue(screen || "HOME", 40),
+    search: cleanFeedbackValue(lastSearchQuery || "", 80),
+    faqId: cleanFeedbackValue(node && node.id || "", 40),
+    faqTitle: cleanFeedbackValue(question, 180),
+    category: cleanFeedbackValue(node && node.category && node.category.name || "", 80),
+    version: APP_VERSION,
+    build: APP_BUILD_ID,
+    pageUrl: location.href.split("#")[0]
+  };
+}
+function askFeedbackDetail(ctx){
+  let message = "";
+  if (ctx.screen === "SEARCH_FAIL") {
+    message = "찾고자 했던 내용을 적어주세요.\n취소해도 검색 실패어와 버전 정보는 기록됩니다.";
+  } else if (ctx.screen === "ANSWER") {
+    message = "이 답변에서 부족했던 점을 적어주세요.\n취소해도 FAQ ID와 버전 정보는 기록됩니다.";
+  } else {
+    message = "서비스 개선 의견을 적어주세요.\n취소하면 전송하지 않습니다.";
+  }
+  const detail = window.prompt(message, "");
+  if (detail === null && ctx.screen === "HOME") return null;
+  return cleanFeedbackValue(detail || "", 1000);
+}
+function feedbackPayload(ctx, detail){
+  return {
+    log_type: "FEEDBACK",
+    feedback_type: ctx.type || "",
+    screen: ctx.screen || "",
+    search_keyword: ctx.search || "",
+    faq_id: ctx.faqId || "",
+    faq_title: ctx.faqTitle || "",
+    category: ctx.category || "",
+    version: ctx.version || "",
+    build_id: ctx.build || "",
+    page_url: ctx.pageUrl || "",
+    detail: cleanFeedbackValue(detail || "", 1000),
+    client_time: new Date().toISOString()
+  };
+}
+function sendFeedbackPayload(payload){
+  if (!isFeedbackReceiverConfigured()) return Promise.reject(new Error("receiver not configured"));
+  const body = JSON.stringify(payload);
+  if (navigator.sendBeacon) {
+    try {
+      const blob = new Blob([body], {type:"text/plain;charset=utf-8"});
+      if (navigator.sendBeacon(FEEDBACK_WEBAPP_URL, blob)) return Promise.resolve({sent:true, via:"sendBeacon"});
+    } catch(e) {}
+  }
+  return fetch(FEEDBACK_WEBAPP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {"Content-Type":"text/plain;charset=utf-8"},
+    body: body,
+    keepalive: true
+  }).then(function(){ return {sent:true, via:"fetch"}; });
+}
+function openFeedbackFallbackForm(ctx){
+  const opened = window.open(FEEDBACK_FALLBACK_FORM_URL, "_blank", "noopener");
+  if (!opened) window.location.href = FEEDBACK_FALLBACK_FORM_URL;
+}
+let feedbackToastTimer = null;
+function showFeedbackToast(message){
+  const toast = document.getElementById("feedbackToast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  if (feedbackToastTimer) clearTimeout(feedbackToastTimer);
+  feedbackToastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 3000);
+}
+function openFeedbackForm(type, screen, nodeId){
+  trackUsage("FEEDBACK_CLICK", {screen: screen || currentScreenCode(), nodeId: nodeId || currentId, detail: type || ""});
+  const ctx = buildFeedbackContext(type, screen, nodeId);
+  const detail = askFeedbackDetail(ctx);
+  if (detail === null) {
+    showFeedbackToast("의견 전송을 취소했습니다.");
+    return;
+  }
+  const payload = feedbackPayload(ctx, detail);
+  sendFeedbackPayload(payload).then(function(){
+    showFeedbackToast("의견이 접수되었습니다.");
+  }).catch(function(){
+    showFeedbackToast("수신창구 URL이 아직 설정되지 않아 Google Form을 엽니다.");
+    openFeedbackFallbackForm(ctx);
+  });
+}
 function syncThemeColorToScheme(){
   const meta=document.querySelector('meta[name="theme-color"]');
   if(!meta) return;
@@ -3057,6 +3304,8 @@ function expandSearchQuery(raw) {
 }
 function runQuickSearch(query) {
   lastSearchQuery = String(query || "").trim();
+  const quickResults = lastSearchQuery ? searchNodes(lastSearchQuery) : [];
+  trackUsage(quickResults.length ? "SEARCH_SUCCESS" : "SEARCH_FAIL", {screen:"HOME", search_keyword:lastSearchQuery, result_count:quickResults.length, detail:"quick"});
   searchCollapsed = false;
   currentId = "ROOT";
   historyStack = [];
@@ -3113,6 +3362,7 @@ function renderSearchRecovery(query) {
   return '<div class="search-recovery-card"><strong>검색 결과가 없습니다.</strong><br>' +
     '아래 예시 키워드나 빠른 입구로 다시 찾아보세요.' +
     '<div class="search-suggest-chips">' + SEARCH_SUGGESTIONS.map(function(k) { return renderSearchChip(k, k); }).join("") + '</div>' +
+    '<div class="search-feedback-actions"><button type="button" class="feedback-open-btn" onclick="openFeedbackForm(\'검색 결과가 없었어요\',\'SEARCH_FAIL\')">원하는 답변이 없나요? 의견 보내기</button><div class="feedback-help-text">의견 수신창구로 검색어와 버전 정보가 전송됩니다.</div></div>' +
   '</div>';
 }
 
@@ -3382,6 +3632,15 @@ function renderAnswerEbookAction(item) {
     '<button type="button" class="ebook-open-btn" onclick="openManualViewer(\'' + escapeHtml(docId) + '\')">e-book 열람 및 검색</button></div>';
 }
 
+function renderAnswerFeedback(item) {
+  if (!item || item.type !== "answer") return "";
+  return '<div class="answer-feedback-card" aria-label="답변 개선 의견 보내기">' +
+    '<div class="answer-feedback-title">원하는 답변을 찾으셨나요?</div>' +
+    '<div class="answer-feedback-desc">내용이 부족하거나 찾던 내용과 다르면 의견을 보내 주세요. FAQ ID와 제목이 수신창구로 전송됩니다.</div>' +
+    '<div class="answer-feedback-actions"><button type="button" class="feedback-open-btn" onclick="openFeedbackForm(\'답변이 부족했어요\',\'ANSWER\')">답변 개선 의견 보내기</button></div>' +
+  '</div>';
+}
+
 function renderAnswer(item) {
   const a = item.answer || {};
   const m = item.meta || {};
@@ -3393,6 +3652,7 @@ function renderAnswer(item) {
   const legalHtml = renderLegalSummary(item, legal);
   const imagesHtml = renderAnswerImages(item);
   const ebookHtml = renderAnswerEbookAction(item);
+  const feedbackHtml = renderAnswerFeedback(item);
   return '<div class="answer-box chat-answer">' +
     '<div class="bubble-wrap user"><div class="bubble-row"><div class="bubble-time">선택</div><div class="bubble user">' + escapeHtml(question) + '</div></div></div>' +
     '<div class="bubble-wrap bot"><div class="bot-avatar"><img src="' + APP_ICON_DATA + '" alt="" /></div><div class="bubble-row"><div class="bubble bot">' +
@@ -3401,13 +3661,14 @@ function renderAnswer(item) {
     ebookHtml + imagesHtml + legalHtml +
     '</div><div class="bubble-time">FAQ</div></div></div>' +
     (related.length ? '<div class="related-wrap"><div class="small">관련 질문</div><div class="related">' + related.map(renderRelatedButton).join("") + '</div></div>' : "") +
+    feedbackHtml +
     '</div>';
 }
 
 function renderHomeActions() {
   return '<section class="home-support-card starter-section" aria-label="처음 이용한다면">' +
     '<div class="home-support-title">처음 이용한다면</div>' +
-    '<div class="home-quick-actions"><button type="button" class="home-quick-btn helper-action" onclick="openUsagePage()">챗봇 사용방법</button><button type="button" class="home-quick-btn secondary helper-action" onclick="openAppSavePage()">앱으로 저장하기</button></div>' +
+    '<div class="home-quick-actions"><button type="button" class="home-quick-btn helper-action" onclick="openUsagePage()">챗봇 사용방법</button><button type="button" class="home-quick-btn secondary helper-action" onclick="openAppSavePage()">앱으로 저장하기</button><button type="button" class="home-quick-btn secondary helper-action feedback-action" onclick="openFeedbackForm(\'서비스 개선 의견\',\'HOME\')">의견 보내기</button></div>' +
   '</section>';
 }
 function renderUsagePage() {
@@ -3488,11 +3749,13 @@ function scrollToManualSection() {
   }, 0);
 }
 function openUsagePage() {
+  trackUsage("USAGE_GUIDE_OPEN", {screen:"HOME"});
   if (currentId) historyStack.push(currentId);
   currentId = SPECIAL_USAGE_ID;
   render();
 }
 function openAppSavePage() {
+  trackUsage("APP_SAVE_GUIDE_OPEN", {screen:"HOME"});
   if (currentId) historyStack.push(currentId);
   currentId = SPECIAL_APP_SAVE_ID;
   render();
@@ -3500,6 +3763,7 @@ function openAppSavePage() {
 function openManualViewer(id) {
   const doc = manualDocById(id);
   if (!doc || doc.active === false || (!doc.ebook && !doc.url)) return;
+  trackUsage("EBOOK_OPEN", {screen:currentScreenCode(), ebook_id:id, ebook_title:doc.title || "", detail:"manual_card"});
   if (currentId) historyStack.push(currentId);
   currentId = SPECIAL_MANUAL_PREFIX + id;
   ebookPageState[id] = ebookPageState[id] || 1;
@@ -3568,6 +3832,7 @@ function runEbookSearch(docId) {
     const qn = normalizeText(query);
     const pages = Array.isArray(index && index.pages) ? index.pages : [];
     const results = pages.filter(function(p) { return normalizeText(p.text).indexOf(qn) >= 0; }).slice(0, 20);
+    trackUsage(results.length ? "EBOOK_SEARCH_SUCCESS" : "EBOOK_SEARCH_FAIL", {screen:"EBOOK", search_keyword:query, result_count:results.length, ebook_id:docId, ebook_title:doc && doc.title || ""});
     const box = document.getElementById("ebookSearchResults");
     if (!box) return;
     box.classList.add("show");
@@ -3731,6 +3996,8 @@ function openNodeOrEbook(id) {
   if (!target || !isMenuEnabled(target)) return;
   const docId = target.meta && target.meta.ebook_doc_id;
   if (docId && manualDocById(docId)) {
+    const doc = manualDocById(docId);
+    trackUsage("EBOOK_OPEN", {screen:currentScreenCode(), nodeId:id, ebook_id:docId, ebook_title:doc && doc.title || "", detail:"node_link"});
     if (currentId) historyStack.push(currentId);
     currentId = SPECIAL_MANUAL_PREFIX + docId;
     ebookPageState[docId] = ebookPageState[docId] || 1;
@@ -3743,6 +4010,7 @@ function openNodeOrEbook(id) {
 function openNode(id) {
   const target = nodeMap[id];
   if (!target || !isMenuEnabled(target)) return;
+  trackUsage(target.type === "answer" ? "FAQ_OPEN" : "MENU_OPEN", {screen:currentScreenCode(), nodeId:id, node:target});
   if (currentId) historyStack.push(currentId);
   currentId = id;
   render();
@@ -3762,6 +4030,7 @@ function goBack() {
   render();
 }
 function goHome() {
+  trackUsage("HOME_OPEN", {screen:currentScreenCode()});
   currentId = "ROOT";
   historyStack = [];
   lastSearchQuery = "";
@@ -3782,6 +4051,8 @@ function toggleSearchResults() {
 function runSearch() {
   const input = document.getElementById("searchInput");
   lastSearchQuery = String(input && input.value || "").trim().slice(0, 80);
+  const searchResultCount = lastSearchQuery ? searchNodes(lastSearchQuery).length : 0;
+  if (lastSearchQuery) trackUsage(searchResultCount ? "SEARCH_SUCCESS" : "SEARCH_FAIL", {screen:"HOME", search_keyword:lastSearchQuery, result_count:searchResultCount, detail:"manual"});
   currentId = "ROOT";
   searchCollapsed = false;
   const url = new URL(window.location.href);
@@ -3811,6 +4082,7 @@ function initFromQuery() {
 
 
 function startFaqApp() {
+  trackUsage("PAGE_VIEW", {screen:"INIT"});
   goHome();
 }
 const INTRO_SESSION_KEY = "gulttuk_intro_seen_v16_2_0";

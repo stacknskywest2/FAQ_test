@@ -1,42 +1,74 @@
-# v16.2.2_패키지
+# v16.3.1_패키지
 
-## 1. 작업 기준
-- 기준 버전: v16.2.1
-- 생성 버전: v16.2.2
-- 작업 성격: 업무편람 e-book 홈 UI 보정
+## 1. 기준 및 목적
 
-## 2. 반영 사항
-1. 홈 화면의 업무편람 e-book 카드에서 표지 이미지가 다시 보이도록 수정했습니다.
-   - v16.2.1의 compact 홈 UI에서 숨김 처리되어 있던 표지 영역을 복원했습니다.
-   - 모바일 화면에서도 2개 카드가 나란히 보이도록 표지 높이와 카드 높이를 조정했습니다.
+- 기준 버전: v16.3.0
+- 생성 버전: v16.3.1
+- 목적: Google Apps Script Web App URL을 반영하여 UX 피드백과 사용량·실적관리 자동 수집을 실제 활성화
 
-2. 홈 화면 e-book 카드 버튼명에서 "업무편람" 문구를 제거했습니다.
-   - 기존: 굴뚝 원격감시체계 업무편람
-   - 변경: 굴뚝 원격감시체계
-   - 기존: 사업장 대기오염물질 총량관리제도 업무편람
-   - 변경: 사업장 대기오염물질 총량관리제도
+## 2. 주요 변경사항
 
-3. 첫 화면 밀도는 유지했습니다.
-   - PDF 다운로드 버튼은 홈 화면에서 계속 숨김 처리했습니다.
-   - e-book 열람 기능은 카드 선택 방식으로 유지했습니다.
+1. Apps Script Web App URL 연결
+   - index.html의 `FEEDBACK_WEBAPP_URL`에 배포 URL 반영
+   - URL: `https://script.google.com/macros/s/AKfycbyrPSIecpUrYCHBnz_ZTPI01ENoqBFqH4q8Z4s-t0nf9jCysiHnxAR-yLZ9Gf6YzaHRBg/exec`
 
-4. 다크모드에서도 표지 카드가 어색하게 보이지 않도록 표지 영역 배경과 경계선을 보정했습니다.
+2. 자동 사용량 이벤트 수집 활성화
+   - PAGE_VIEW: 서비스 접속
+   - HOME_OPEN: 홈 이동
+   - MENU_OPEN: 메뉴/질문트리 이동
+   - FAQ_OPEN: FAQ 답변 열람
+   - SEARCH_SUCCESS: 검색 결과 있음
+   - SEARCH_FAIL: 검색 결과 없음
+   - EBOOK_OPEN: 업무편람 e-book 열람
+   - EBOOK_SEARCH_SUCCESS: e-book 검색 성공
+   - EBOOK_SEARCH_FAIL: e-book 검색 실패
+   - FEEDBACK_CLICK: 의견 보내기 클릭
 
-5. 버전 관련 파일을 v16.2.2 기준으로 갱신했습니다.
-   - index.html
-   - version.json
-   - manifest.webmanifest
-   - service-worker.js
-   - README.txt
+3. 의견 보내기 기능 유지
+   - 의견 보내기는 자동 로그 저장 조건이 아니라, 사용자가 자발적으로 개선 의견을 남기는 기능입니다.
+   - 기본 사용량 이벤트는 의견 보내기를 누르지 않아도 자동 전송됩니다.
 
-## 3. 배포 전 확인 권장사항
-- 모바일 라이트모드에서 업무편람 e-book 표지가 보이는지 확인
-- 모바일 다크모드에서 표지 카드 배경과 글자 대비 확인
-- e-book 카드 버튼명에 "업무편람" 문구가 빠졌는지 확인
-- 각 e-book 카드 선택 시 기존처럼 뷰어가 정상 열리는지 확인
-- GitHub Pages 배포 후 캐시가 남아 있으면 업데이트 버튼 또는 새로고침으로 최신본 적용
+4. 주간·월간 보고서 기반 유지
+   - Google Apps Script의 `installTriggersNow` 실행으로 설치한 트리거가 주간·월간 보고서를 발송합니다.
+   - 수신 메일: `stacknsky_west2@keco.or.kr`
 
-## 4. 변경 범위
-- FAQ 문항 DB 내용은 변경하지 않았습니다.
-- 업무편람 PDF, 법령 PDF, 답변 이미지 파일은 변경하지 않았습니다.
-- 홈 화면 e-book 카드 UI, CSS, 버전 파일만 수정했습니다.
+## 3. 수집하지 않는 항목
+
+다음 항목은 수집하지 않습니다.
+
+- 이름
+- 연락처
+- 사번
+- IP
+- 위치정보
+- 기기 고유정보
+- Google 계정 정보
+- 브라우저 fingerprint
+
+브라우저 세션 단위 임시 session_id만 사용하며, 장기 사용자 추적용으로 사용하지 않습니다.
+
+## 4. 배포 후 확인
+
+GitHub Pages에 업로드한 뒤 아래 순서로 확인합니다.
+
+1. 서비스 접속
+2. 검색 1회 실행
+3. 검색 결과 없는 검색어 1회 실행
+4. FAQ 답변 1개 열람
+5. e-book 버튼 1회 열람
+6. 의견 보내기 버튼 1회 클릭
+
+Google Sheets 확인 위치:
+
+- 사용량원본: PAGE_VIEW, SEARCH_SUCCESS, SEARCH_FAIL, FAQ_OPEN, EBOOK_OPEN 등 자동 기록 확인
+- 응답원본: 의견 보내기에서 작성한 개선 의견 확인
+- 메일발송이력: 테스트 메일 및 트리거 설치 이력 확인
+
+## 5. 검증 항목
+
+- JavaScript 구문 검사
+- JSON 파싱
+- manifest 파싱
+- service-worker 캐시명 갱신
+- Apps Script URL 반영 확인
+- ZIP 무결성 검사

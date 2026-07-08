@@ -1,0 +1,64 @@
+v16.2.4 verification report
+
+1. Build summary
+- Base package: v16.2.3_패키지.zip
+- Output package: v16.2.4_패키지.zip
+- Change type: UX feedback receiver architecture change
+- Main change: Google Form centered feedback was converted to Google Apps Script Web App + Google Sheets receiver structure.
+
+2. Modified files
+- index.html
+- version.json
+- manifest.webmanifest
+- service-worker.js
+- README.txt
+- apps_script/COP_FAQ_UX_Receiver.gs
+- apps_script/README_AppsScript_설치안내.txt
+- apps_script/FEEDBACK_ENDPOINT_URL_입력위치.txt
+
+3. Functional changes
+- Added Apps Script receiver code for Google Sheets.
+- Added automatic Google Sheets sheet setup for 응답원본, 실패검색어, FAQ개선, 서비스개선, 통계대시보드, 코드표.
+- Changed feedback button behavior to send structured payloads to Apps Script Web App when FEEDBACK_WEBAPP_URL is configured.
+- Kept Google Form fallback when FEEDBACK_WEBAPP_URL is empty or not configured.
+- No FAQ answer content was changed.
+- No manual PDF, law PDF, e-book image, or answer image was changed.
+
+4. Collected data fields
+- feedback_type
+- screen
+- search_keyword
+- faq_id
+- faq_title
+- category
+- version
+- build_id
+- page_url
+- detail
+- client_time
+
+5. Non-collected fields
+- name
+- phone number
+- employee number
+- IP address
+- device unique identifier
+- location information
+- login information
+
+6. Static validation
+- Extracted index.html script syntax check: PASS
+- Apps Script source syntax check using node parser copy: PASS
+- service-worker.js syntax check: PASS
+- version.json parsing: PASS
+- manifest.webmanifest parsing: PASS
+
+7. Service worker validation
+- Cache name updated to gulttuk-helper-v16-2-4-20260708-ux-feedback-appsscript.
+- Precache file existence check performed separately in build script.
+
+8. Deployment note
+- Apps Script Web App URL is not available until the user deploys COP_FAQ_UX_Receiver.gs from Google Sheets.
+- After deployment, paste the URL into index.html:
+  const FEEDBACK_WEBAPP_URL = "https://script.google.com/macros/s/.../exec";
+- Until this URL is configured, feedback buttons fall back to the existing Google Form.

@@ -1,21 +1,21 @@
 {
-  "version": "v16.2.2",
-  "version_tag": "v16.2.2-manual-cover-ui-20260702",
-  "release_date": "2026-07-02",
-  "build_id": "v16.2.2-20260702-manual-cover-ui",
+  "version": "v16.3.1",
+  "version_tag": "v16.3.1-usage-report-connected-20260708",
+  "release_date": "2026-07-08",
+  "build_id": "v16.3.1-20260708-usage-report-connected",
   "app_name": "굴뚝도우미",
   "faq_name": "굴뚝 도우미 FAQ",
-  "goal": "업무편람 e-book 홈 영역에서 표지 이미지를 다시 보이게 하고, 홈 버튼명에서는 업무편람 문구를 제거한다",
-  "message": "업무편람 e-book 홈 UI 표지 복원 및 버튼명 정리",
+  "goal": "Google Apps Script와 Google Sheets를 활용하여 UX 피드백과 서비스 사용량 실적을 자동 수집·집계하고 주간·월간 보고서 발송 기반을 운영한다",
+  "message": "Apps Script Web App URL 연결 완료본",
   "changes": [
-    "홈 화면 업무편람 e-book 영역의 표지 이미지 노출 복원",
-    "홈 화면 e-book 카드 버튼명에서 업무편람 문구 삭제",
-    "PDF 다운로드 버튼은 홈 화면에서 계속 숨겨 첫 화면 밀도 유지",
-    "모바일 홈 화면에서 표지가 보이도록 카드 높이와 본문 영역 재조정",
-    "다크모드에서도 표지 카드 배경과 경계선이 자연스럽게 보이도록 보정",
-    "service-worker 캐시 버전을 v16.2.2로 갱신"
+    "v16.3.0 사용량·실적관리 확장본에 Apps Script Web App URL 반영",
+    "PAGE_VIEW, HOME_OPEN, MENU_OPEN, FAQ_OPEN, SEARCH_SUCCESS, SEARCH_FAIL, EBOOK_OPEN, EBOOK_SEARCH_SUCCESS, EBOOK_SEARCH_FAIL, FEEDBACK_CLICK 자동 수집 활성화",
+    "의견 보내기 클릭 없이도 기본 사용량 이벤트가 자동 저장되도록 연결",
+    "의견 보내기 기능은 자발적 개선 의견 접수용으로 유지",
+    "주간·월간 보고서 메일 발송은 Apps Script 트리거에서 수행",
+    "service-worker 캐시 버전을 v16.3.1로 갱신"
   ],
-  "build": "20260702-v1622-manual-cover-ui",
-  "label": "v16.2.2 업무편람 e-book 표지 복원 및 버튼명 정리본",
-  "description": "v16.2.1을 기준으로 홈 화면 업무편람 e-book 카드의 표지 이미지를 복원하고, 버튼명에서는 업무편람 문구를 제거한 패키지입니다."
+  "build": "20260708-v1631-usage-report-connected",
+  "label": "v16.3.1 사용량·실적관리 최종 연결본",
+  "description": "v16.3.0을 기준으로 Apps Script Web App URL을 연결하여 서비스 접속, 검색, FAQ 열람, e-book 열람, 피드백 클릭 이벤트의 자동 저장을 활성화한 패키지입니다."
 }

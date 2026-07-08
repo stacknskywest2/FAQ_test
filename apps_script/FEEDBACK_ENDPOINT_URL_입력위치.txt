@@ -1,0 +1,9 @@
+index.html에서 아래 줄을 찾으세요.
+
+const FEEDBACK_WEBAPP_URL = "";
+
+Apps Script 웹 앱 배포 URL을 받은 뒤 아래처럼 바꿉니다.
+
+const FEEDBACK_WEBAPP_URL = "https://script.google.com/macros/s/여기에_배포ID/exec";
+
+v16.3.0에서는 이 URL 하나로 UX 피드백과 사용량 실적 이벤트를 모두 수신합니다.
